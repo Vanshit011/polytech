@@ -1,5 +1,5 @@
 import React from 'react';
-import { Atom, Recycle, Award, Users, Target, CheckCircle } from 'lucide-react';
+import { Atom, Recycle, Award, Users, Target, CheckCircle, MapPin } from 'lucide-react';
 
 const About: React.FC = () => {
   const values = [
@@ -26,10 +26,11 @@ const About: React.FC = () => {
   ];
 
   const achievements = [
-    'ISO 9001:2015 Certified Manufacturing',
+    '25+ Years of Industry Experience',
     'Advanced Quality Control Systems',
     'Eco-Friendly Production Processes',
-    '1000+ Tons Annual Processing Capacity',
+    '250 Tons Monthly Processing Capacity',
+    '3000+ Tons Annual Capacity',
     'Trusted by Leading Industries',
     'Expert Technical Support Team'
   ];
@@ -37,18 +38,25 @@ const About: React.FC = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-primary-500 text-white py-20">
-        <div className="absolute inset-0 bg-black opacity-20"></div>
+      <section className="relative bg-black text-white py-20">
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-primary-900 opacity-90"></div>
+        <div className="absolute inset-0">
+          <img
+            src="https://images.pexels.com/photos/3735218/pexels-photo-3735218.jpeg"
+            alt="Factory Exterior View"
+            className="w-full h-full object-cover opacity-30"
+          />
+        </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="flex justify-center mb-8">
-              <div className="bg-white bg-opacity-20 p-6 rounded-2xl backdrop-blur-sm">
+              <div className="bg-primary-500 bg-opacity-20 p-6 rounded-2xl backdrop-blur-sm">
                 <Atom size={64} className="text-white" />
               </div>
             </div>
             <h1 className="text-5xl md:text-6xl font-bold mb-6">About Polytech Polymers</h1>
             <p className="text-xl md:text-2xl text-primary-100 max-w-4xl mx-auto leading-relaxed">
-              Leading manufacturer of reprocess plastic granules with a commitment to sustainability, quality, and innovation
+              Leading manufacturer of reprocess plastic granules with a commitment to sustainability, quality, and innovation since 2000
             </p>
           </div>
         </div>
@@ -63,29 +71,29 @@ const About: React.FC = () => {
                 Our <span className="primary-text">Story</span>
               </h2>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                Polytech Polymers has been at the forefront of plastic recycling and reprocessing, 
+                Since 2000, Polytech Polymers has been at the forefront of plastic recycling and reprocessing, 
                 providing high-quality polymer solutions for various industrial applications. 
                 Located in Gundasara, Gujarat, we have established ourselves as a trusted name in the polymer industry.
               </p>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
                 Our state-of-the-art manufacturing facility is equipped with modern machinery and quality control systems 
                 to ensure every product meets the highest standards of quality and consistency. We specialize in 
-                reprocessing various types of plastic materials into premium granules.
+                reprocessing various types of plastic materials into premium black granules with a monthly capacity of 250 tons.
               </p>
               <p className="text-lg text-gray-600 leading-relaxed">
-                We manufacture a comprehensive range of reprocessed plastic granules including HIPS (High Impact Polystyrene), 
-                ABS (Acrylonitrile Butadiene Styrene), and PC (Polycarbonate) in various grades and colors to meet 
-                diverse industrial requirements.
+                We manufacture a comprehensive range of reprocessed plastic granules including ABS Black, PC Black, 
+                HIPS Black, and PC/ABS Black granules to meet diverse industrial requirements. Our commitment to quality 
+                and customer satisfaction has made us a preferred supplier for numerous industries.
               </p>
             </div>
             <div className="relative">
               <img
                 src="https://images.pexels.com/photos/3735218/pexels-photo-3735218.jpeg"
-                alt="Polytech Polymers Manufacturing"
+                alt="Polytech Polymers Factory Exterior"
                 className="rounded-2xl shadow-2xl"
               />
               <div className="absolute -bottom-6 -right-6 bg-primary-500 text-white p-6 rounded-xl shadow-lg">
-                <div className="text-3xl font-bold">15+</div>
+                <div className="text-3xl font-bold">25+</div>
                 <div className="text-sm">Years of Excellence</div>
               </div>
             </div>
@@ -141,21 +149,21 @@ const About: React.FC = () => {
               </div>
             </div>
             <div className="bg-primary-50 rounded-2xl p-8 border border-primary-200">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Quality Certifications</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Production Capacity</h3>
               <div className="space-y-6">
                 <div className="bg-white rounded-xl p-6 shadow-md">
                   <div className="flex items-center justify-center mb-4">
                     <Award size={48} className="text-primary-500" />
                   </div>
-                  <h4 className="text-lg font-bold text-center text-gray-900 mb-2">Quality Standards</h4>
-                  <p className="text-gray-600 text-center">All products manufactured according to international quality standards</p>
+                  <h4 className="text-lg font-bold text-center text-gray-900 mb-2">Monthly Capacity</h4>
+                  <p className="text-gray-600 text-center">250 Tons per month processing capacity</p>
                 </div>
                 <div className="bg-white rounded-xl p-6 shadow-md">
                   <div className="flex items-center justify-center mb-4">
                     <Recycle size={48} className="text-primary-500" />
                   </div>
-                  <h4 className="text-lg font-bold text-center text-gray-900 mb-2">ECO-FRIENDLY</h4>
-                  <p className="text-gray-600 text-center">Sustainable reprocessing contributing to environmental conservation</p>
+                  <h4 className="text-lg font-bold text-center text-gray-900 mb-2">Annual Output</h4>
+                  <p className="text-gray-600 text-center">3000+ Tons annual production capacity</p>
                 </div>
               </div>
             </div>
@@ -182,7 +190,7 @@ const About: React.FC = () => {
                 <div className="space-y-4">
                   <div className="flex items-start">
                     <div className="bg-primary-100 p-2 rounded-lg mr-4 mt-1">
-                      <Atom size={20} className="text-primary-600" />
+                      <MapPin size={20} className="text-primary-600" />
                     </div>
                     <div>
                       <h4 className="font-semibold text-gray-900">Address</h4>
@@ -209,7 +217,7 @@ const About: React.FC = () => {
                 </div>
               </div>
               <div className="bg-primary-50 rounded-xl p-6 border border-primary-200">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Why Gundasara?</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Strategic Advantages</h3>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-center">
                     <CheckCircle size={16} className="text-primary-500 mr-3" />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Phone, Mail, Clock, Send, Atom, CheckCircle } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, Atom, CheckCircle, MessageCircle } from 'lucide-react';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -13,7 +13,17 @@ const Contact: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
+    // Create WhatsApp message
+    const message = `Hello! New inquiry from website:
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Company: ${formData.company}
+Message: ${formData.message}`;
+
+    const whatsappUrl = `https://wa.me/919825153084?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+
     setIsSubmitted(true);
     setTimeout(() => setIsSubmitted(false), 3000);
   };
@@ -28,11 +38,22 @@ const Contact: React.FC = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-primary-500 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative bg-black text-white py-16 overflow-hidden">
+        {/* Background Layer */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-primary-900 opacity-90"></div>
+          <img
+            src="https://images.pexels.com/photos/3735218/pexels-photo-3735218.jpeg"
+            alt="Contact Us"
+            className="w-full h-full object-cover opacity-30"
+          />
+        </div>
+
+        {/* Foreground Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="flex justify-center mb-6">
-              <div className="bg-white bg-opacity-20 p-4 rounded-xl backdrop-blur-sm">
+              <div className="bg-primary-500 bg-opacity-20 p-4 rounded-xl backdrop-blur-sm shadow-xl">
                 <Phone size={48} className="text-white" />
               </div>
             </div>
@@ -44,6 +65,7 @@ const Contact: React.FC = () => {
         </div>
       </section>
 
+
       {/* Contact Information */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -54,9 +76,9 @@ const Contact: React.FC = () => {
                 Send us a <span className="primary-text">Message</span>
               </h2>
               <p className="text-lg text-gray-600 mb-8">
-                Fill out the form below and we'll get back to you as soon as possible.
+                Fill out the form below and we'll get back to you as soon as possible via WhatsApp.
               </p>
-              
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
@@ -90,7 +112,7 @@ const Contact: React.FC = () => {
                     />
                   </div>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">
@@ -122,7 +144,7 @@ const Contact: React.FC = () => {
                     />
                   </div>
                 </div>
-                
+
                 <div>
                   <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">
                     Message *
@@ -138,7 +160,7 @@ const Contact: React.FC = () => {
                     placeholder="Tell us about your polymer requirements..."
                   />
                 </div>
-                
+
                 <button
                   type="submit"
                   disabled={isSubmitted}
@@ -147,12 +169,12 @@ const Contact: React.FC = () => {
                   {isSubmitted ? (
                     <>
                       <CheckCircle size={20} className="mr-2" />
-                      Message Sent!
+                      Sent to WhatsApp!
                     </>
                   ) : (
                     <>
-                      <Send size={20} className="mr-2" />
-                      Send Message
+                      <MessageCircle size={20} className="mr-2" />
+                      Send via WhatsApp
                     </>
                   )}
                 </button>
@@ -167,19 +189,23 @@ const Contact: React.FC = () => {
               <p className="text-lg text-gray-600 mb-8">
                 Reach out to us through any of the following channels. We're here to help with all your polymer needs.
               </p>
-              
+
               <div className="space-y-8">
                 {/* Address */}
                 <div className="flex items-start">
                   <div className="bg-primary-500 p-3 rounded-xl mr-4 flex-shrink-0">
+                    {/* <div className="bg-primary-500 p-3 rounded-xl mr-4 flex-shrink-0"> */}
                     <MapPin size={24} className="text-white" />
+                    {/* </div> */}
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Our Location</h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      Gundasara Industrial Area,<br />
-                      Gundasara, Gujarat, India
-                    </p>
+                    <span>
+                      Atlas Park-2, Plot No. 6, 7, 8 & 9<br />
+                      Gudasara Road, Ribda<br />
+                      Taluka: Gondal, District: Rajkot<br />
+                      Gujarat, India – 360311
+                    </span>
                   </div>
                 </div>
 
@@ -191,26 +217,10 @@ const Contact: React.FC = () => {
                   <div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Phone Number</h3>
                     <div className="space-y-2">
-                      <a href="tel:+919023954546" className="block text-primary-600 hover:text-primary-700 font-semibold">
-                        +91 90239 54546
+                      <a href="tel:+919825153084" className="block text-primary-600 hover:text-primary-700 font-semibold">
+                        +91 98251 53084
                       </a>
                     </div>
-                  </div>
-                </div>
-
-                {/* Email */}
-                <div className="flex items-start">
-                  <div className="bg-primary-500 p-3 rounded-xl mr-4 flex-shrink-0">
-                    <Mail size={24} className="text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">Email Address</h3>
-                    <a 
-                      href="mailto:info@polytechpolymers.com" 
-                      className="text-primary-600 hover:text-primary-700 font-semibold"
-                    >
-                      info@polytechpolymers.com
-                    </a>
                   </div>
                 </div>
 
@@ -222,8 +232,8 @@ const Contact: React.FC = () => {
                   <div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Business Hours</h3>
                     <div className="text-gray-600">
-                      <p>Monday - Saturday: 9:00 AM - 6:00 PM</p>
-                      <p>Sunday: Closed</p>
+                      <p>Monday - Saturday: 9:00 AM - 8:00 PM</p>
+                      <p className="text-red-600 font-semibold">Wednesday: CLOSED</p>
                     </div>
                   </div>
                 </div>
@@ -234,16 +244,19 @@ const Contact: React.FC = () => {
                 <h3 className="text-lg font-bold text-gray-900 mb-4">Quick Contact</h3>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <a
-                    href="tel:+919023954546"
+                    href="tel:+919825153084"
                     className="flex-1 bg-primary-500 text-white px-6 py-3 rounded-xl font-semibold text-center hover:bg-primary-600 transition-all duration-300"
                   >
                     Call Now
                   </a>
                   <a
-                    href="mailto:info@polytechpolymers.com"
-                    className="flex-1 bg-transparent border-2 border-primary-500 text-primary-600 px-6 py-3 rounded-xl font-semibold text-center hover:bg-primary-500 hover:text-white transition-all duration-300"
+                    href="https://wa.me/919825153084?text=Hello! I'm interested in your plastic granules. Please provide more information."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 bg-transparent border-2 border-primary-500 text-primary-600 px-6 py-3 rounded-xl font-semibold text-center hover:bg-primary-500 hover:text-white transition-all duration-300 flex items-center justify-center"
                   >
-                    Email Us
+                    <MessageCircle size={16} className="mr-2" />
+                    WhatsApp
                   </a>
                 </div>
               </div>
@@ -263,18 +276,18 @@ const Contact: React.FC = () => {
               Located in the heart of Gundasara Industrial Area for easy accessibility
             </p>
           </div>
-          
+
           <div className="bg-white rounded-2xl shadow-lg p-8">
             <div className="aspect-w-16 aspect-h-9 bg-gray-200 rounded-xl flex items-center justify-center">
               <div className="text-center">
                 <MapPin size={48} className="text-primary-500 mx-auto mb-4" />
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Gundasara Industrial Area</h3>
-                <p className="text-gray-600">Gundasara, Gujarat, India</p>
+                <p className="text-gray-600 mb-4">Gundasara, Gujarat, India</p>
                 <a
-                  href="https://maps.google.com/?q=Gundasara+Industrial+Area+Gujarat"
+                  href="https://maps.app.goo.gl/Rs19Pih8B86bTzGQ8"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block mt-4 bg-primary-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-600 transition-all duration-300"
+                  className="inline-block bg-primary-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-600 transition-all duration-300"
                 >
                   View on Google Maps
                 </a>
@@ -285,7 +298,7 @@ const Contact: React.FC = () => {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-16 bg-white">
+      {/* <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -295,7 +308,7 @@ const Contact: React.FC = () => {
               We are committed to providing the best polymer solutions with unmatched quality and service
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
@@ -310,13 +323,13 @@ const Contact: React.FC = () => {
               },
               {
                 icon: Phone,
-                title: '24/7 Support',
-                description: 'Round-the-clock customer support and assistance'
-              },
-              {
-                icon: Mail,
                 title: 'Quick Response',
                 description: 'Fast response to all inquiries and service requests'
+              },
+              {
+                icon: MessageCircle,
+                title: 'WhatsApp Support',
+                description: 'Instant communication via WhatsApp for quick assistance'
               }
             ].map((feature, index) => (
               <div key={index} className="bg-gray-50 rounded-2xl p-6 hover:shadow-xl transition-all duration-300 text-center">
@@ -329,7 +342,7 @@ const Contact: React.FC = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

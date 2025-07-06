@@ -6,10 +6,12 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Products from './pages/Products';
 import Contact from './pages/Contact';
+import ScrollToTop from './components/ScrollToTop'; // ✅ Correct import with uppercase
 
 function App() {
   return (
     <Router>
+      <ScrollToTop /> {/* ✅ Auto scroll on route change */}
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-1">

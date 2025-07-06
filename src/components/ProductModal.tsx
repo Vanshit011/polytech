@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Atom, Award, Wrench, Package, CheckCircle } from 'lucide-react';
+import { X, Atom, Award, Wrench, Package, CheckCircle, MessageCircle } from 'lucide-react';
 import { Product } from '../types';
 
 interface ProductModalProps {
@@ -8,6 +8,15 @@ interface ProductModalProps {
 }
 
 const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
+  const getWhatsAppMessage = (productName: string) => {
+    return `Hello! I'm interested in getting a quote for ${productName}. Please provide pricing and availability details. Minimum order: 500 KG.`;
+  };
+
+  const getWhatsAppUrl = (productName: string) => {
+    const message = encodeURIComponent(getWhatsAppMessage(productName));
+    return `https://wa.me/919825153084?text=${message}`;
+  };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
@@ -39,6 +48,14 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
                   <div className="flex items-center text-primary-700 font-semibold">
                     <Atom size={20} className="mr-2" />
                     <span>ECO-FRIENDLY REPROCESSED MATERIAL</span>
+                  </div>
+                </div>
+                <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
+                  <div className="text-yellow-800 font-semibold text-center">
+                    Minimum Order: 500 KG
+                  </div>
+                  <div className="text-yellow-700 text-sm text-center mt-1">
+                    Other colors available on request
                   </div>
                 </div>
               </div>
@@ -145,16 +162,19 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
                 <p className="mb-4 opacity-90">Contact us for pricing and availability</p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <a
-                    href="tel:+919023954546"
+                    href="tel:+919825153084"
                     className="bg-white text-primary-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
                   >
-                    Call: +91 90239 54546
+                    Call: +91 98251 53084
                   </a>
                   <a
-                    href="mailto:info@polytechpolymers.com"
-                    className="bg-white bg-opacity-20 text-white px-6 py-3 rounded-lg font-semibold hover:bg-opacity-30 transition-colors"
+                    href={getWhatsAppUrl(product.name)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-white bg-opacity-20 text-white px-6 py-3 rounded-lg font-semibold hover:bg-opacity-30 transition-colors flex items-center justify-center"
                   >
-                    Email Us
+                    <MessageCircle size={16} className="mr-2" />
+                    Get Quote on WhatsApp
                   </a>
                 </div>
               </div>
