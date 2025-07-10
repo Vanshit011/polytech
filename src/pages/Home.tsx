@@ -81,8 +81,6 @@ const Home: React.FC = () => {
       features: [
         'Excellent Impact Resistance',
         'Superior Chemical Resistance',
-        'High Dimensional Stability',
-        'Flame Retardant Options',
         'Low Moisture Absorption'
       ]
     }
