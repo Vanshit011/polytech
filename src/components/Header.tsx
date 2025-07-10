@@ -24,7 +24,7 @@ const Header: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center text-sm">
             <div className="flex items-center">
-              <span className="font-semibold">Trusted by Makers. Proven in Performance • Trusted Since 2000</span>
+              <span className="font-semibold">Trusted by Makers. Proven in Performance</span>
             </div>
             <div className="hidden md:flex items-center space-x-4">
               <span className="font-bold text-primary-100">🏭 Premium Polymer Solutions</span>
