@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Atom, Recycle, Award, Phone, ArrowRight, CheckCircle, Star, ShoppingCart, MessageCircle, Target, Eye } from 'lucide-react';
 import { useInView } from 'react-intersection-observer';
+import { BsWhatsapp } from "react-icons/bs";
+
 
 import home_background from '../assets/20250710_1351_Colorful Granules Display_simple_compose_01jzspprb6ex0vyk2kwdgpmsg6.png';
 
@@ -16,7 +18,7 @@ const Home: React.FC = () => {
   const { ref: featuresRef, inView: featuresInView } = useInView({ triggerOnce: true, threshold: 0.2 });
   const { ref: expertiseRef, inView: expertiseInView } = useInView({ triggerOnce: true, threshold: 0.2 });
   const { ref: productsRef, inView: productsInView } = useInView({ triggerOnce: true, threshold: 0.1 });
-  const { ref: recyclingRef, inView: recyclingInView } = useInView({ triggerOnce: true, threshold: 0.2 });
+  // const { ref: recyclingRef, inView: recyclingInView } = useInView({ triggerOnce: true, threshold: 0.2 });
   const { ref: ctaRef, inView: ctaInView } = useInView({ triggerOnce: true, threshold: 0.2 });
 
 
@@ -46,46 +48,48 @@ const Home: React.FC = () => {
   ];
 
   const [counts, setCounts] = useState<number[]>(stats.map(() => 0));
-
   const products = [
-  {
-    name: 'ABS Black',
-    description: 'Premium black ABS granules with enhanced UV resistance',
-    minOrder: '500 KG',
-    features: ['UV Stable', 'High Impact', 'Superior Finish'],
-    image: require('../assets/20250707_1907_ABS Black Granules_simple_compose_01jzjhjhceeq3v53bkzccneyvz.png')
-  },
-  {
-    name: 'PC Black',
-    description: 'High-performance polycarbonate with exceptional strength',
-    minOrder: '500 KG',
-    features: ['Temperature Resistant', 'Impact Resistant', 'Dimensional Stability'],
-    image: require('../assets/20250707_1907_ABS Black Granules_simple_compose_01jzjhjhcfe9ct9k3qt8vxfd1a.png')
-  },
-  {
-    name: 'HIPS Black',
-    description: 'High-quality HIPS for automotive and electronics',
-    minOrder: '1000 KG',
-    features: ['Easy Processing', 'Good Impact', 'Heat Resistant'],
-    image: require('../assets/20250707_1911_Black Granules Display_simple_compose_01jzjhsz2kedt91zss1q3de3mr.png')
-  },
-  {
-    name: 'PC/ABS Black',
-    description: 'Premium blend combining PC and ABS properties',
-    minOrder: '500 KG',
-    features: ['Best of Both', 'Excellent Processing', 'Superior Performance'],
-    image: require('../assets/20250707_1918_Granules Manufacturing Backdrop_simple_compose_01jzjj52kdfjx9120xy3jgc0gt.png')
-  }
-];
+    {
+      name: 'ABS Black',
+      description: 'Premium black ABS granules with enhanced UV resistance',
+      minOrder: '500 KG',
+      features: ['UV Stable', 'High Impact', 'Superior Finish'],
 
+    },
+    {
+      name: 'PC Black',
+      description: 'High-performance polycarbonate with exceptional strength',
+      minOrder: '500 KG',
+      features: ['Temperature Resistant', 'Impact Resistant', 'Dimensional Stability']
+    },
+    {
+      name: 'HIPS Black',
+      description: 'High-quality HIPS for automotive and electronics',
+      minOrder: '1000 KG',
+      features: ['Easy Processing', 'Good Impact', 'Heat Resistant']
+    },
+    {
+      name: 'PC/ABS Black',
+      description: 'Premium blend combining PC and ABS properties',
+      minOrder: '500 KG',
+      features: ['Best of Both', 'Excellent Processing', 'Superior Performance']
+    }
+  ];
 
-  // Auto-scroll every 3 seconds for products
+  const processSteps = [
+    { step: '1', title: 'Collection', desc: 'Sourcing quality plastic scrap\nfrom verified suppliers.\nEnsuring clean & high-grade materials.' },
+    { step: '2', title: 'Sorting', desc: 'Careful segregation & cleaning\nof plastic materials.\nRemoving impurities and sorting by type.' },
+    { step: '3', title: 'Processing', desc: 'Advanced machinery reprocessing\nplastic scrap into granules.\nEnsuring quality & consistency.' },
+    { step: '4', title: 'Quality Check', desc: 'Rigorous testing and inspections.\nEnsuring product meets industrial standards.\nSafe & ready for delivery.' }
+  ];
+
+  // Auto-scroll every 2 seconds for products
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentProductIndex((prevIndex) =>
         prevIndex === products.length - 1 ? 0 : prevIndex + 1
       );
-    }, 4000); // Increased to 4 seconds for better readability
+    }, 2000); // Increased to 4 seconds for better readability
     return () => clearInterval(interval);
   }, [products.length]);
 
@@ -123,7 +127,7 @@ const Home: React.FC = () => {
       {/* Hero Section */}
       <section ref={heroRef} className="relative bg-black text-white overflow-hidden">
         {/* Overlay & Background Image */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-primary-900 opacity-90"></div>
+        {/* <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-primary-900 opacity-90"></div> */}
         <div className="absolute inset-0">
           <img
             src={home_background}
@@ -206,7 +210,7 @@ const Home: React.FC = () => {
 
       {/* Stats Section */}
       <section ref={statsRef} className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => {
               const suffix = stat.number.replace(/[0-9+.]/g, '').trim();
@@ -230,7 +234,7 @@ const Home: React.FC = () => {
               );
             })}
           </div>
-        </div>
+        {/* </div> */}
       </section>
 
       {/* Features Section */}
@@ -337,108 +341,110 @@ const Home: React.FC = () => {
       </section>
 
       {/* Auto-Scrolling Products Preview */}
-    {/*Product Showcase Section (with background images per product) */}
-<section ref={productsRef} className="py-20 bg-black text-white overflow-hidden">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="text-center mb-16">
-      <h2 className={`text-4xl md:text-5xl font-bold mb-6 transition-all duration-700 ${productsInView ? 'opacity-100 animate-fade-in-down' : 'opacity-0'}`}>
-        Our <span className="text-primary-500">Product Range</span>
-      </h2>
-      <p className={`text-xl text-gray-300 max-w-3xl mx-auto mb-8 transition-all duration-700 ${productsInView ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '0.2s' }}>
-        Specialized in black granules for industrial applications
-      </p>
-      <p className={`text-lg text-primary-200 transition-all duration-700 ${productsInView ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '0.4s' }}>
-        We can supply other colors on request
-      </p>
-    </div>
-
-    <div className={`relative mb-12 transition-all duration-700 ${productsInView ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '0.6s' }}>
-      <div className="relative rounded-2xl overflow-hidden border border-primary-500 backdrop-blur-sm shadow-xl">
-        <img
-          src={products[currentProductIndex].image}
-          alt={products[currentProductIndex].name}
-          className="absolute inset-0 w-full h-full object-cover opacity-20"
-        />
-        <div className="relative bg-primary-500 bg-opacity-20 p-8 text-center">
-          <div className="bg-primary-500 w-16 h-16 rounded-xl flex items-center justify-center mb-6 mx-auto animate-pulse-light">
-            <Atom size={32} className="text-white" />
-          </div>
-          <h3 className="text-3xl font-bold text-white mb-4">
-            {products[currentProductIndex].name}
-          </h3>
-          <p className="text-xl text-primary-100 mb-6">
-            {products[currentProductIndex].description}
-          </p>
-          <div className="flex flex-wrap justify-center gap-3 mb-6">
-            {products[currentProductIndex].features.map((feature, index) => (
-              <span
-                key={index}
-                className="bg-white bg-opacity-20 text-white px-4 py-2 rounded-full text-sm font-semibold"
-              >
-                {feature}
-              </span>
-            ))}
-          </div>
-          <p className="text-primary-200 font-semibold">
-            Minimum Order: {products[currentProductIndex].minOrder}
-          </p>
-        </div>
-      </div>
-
-      {/* Dots */}
-      <div className="flex justify-center mt-6 space-x-2">
-        {products.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentProductIndex(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentProductIndex
-                ? 'bg-primary-500 scale-125'
-                : 'bg-white bg-opacity-30 hover:bg-opacity-50'
-            }`}
-          />
-        ))}
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-      {/* Recycling Process Section */}
-      <section ref={recyclingRef} className="py-20 bg-white">
+      <section ref={productsRef} className="py-20 bg-black text-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className={`text-4xl md:text-5xl font-bold text-gray-900 mb-6 transition-all duration-700 ${recyclingInView ? 'opacity-100 animate-fade-in-down' : 'opacity-0'}`}>
-              Our <span className="text-primary-500">Recycling Process</span>
+            <h2 className={`text-4xl md:text-5xl font-bold mb-6 transition-all duration-700 ${productsInView ? 'opacity-100 animate-fade-in-down' : 'opacity-0'}`}>
+              Our <span className="text-primary-500">Product Range</span>
             </h2>
-            <p className={`text-xl text-gray-600 max-w-3xl mx-auto transition-all duration-700 ${recyclingInView ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '0.2s' }}>
-              Advanced recycling technology for superior quality reprocessed granules
+            <p className={`text-xl text-gray-300 max-w-3xl mx-auto mb-8 transition-all duration-700 ${productsInView ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '0.2s' }}>
+              Specialized in black granules for industrial applications
+            </p>
+            <p className={`text-lg text-primary-200 transition-all duration-700 ${productsInView ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '0.4s' }}>
+              We can supply other colors on request
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { step: '1', title: 'Collection', desc: 'Sourcing quality plastic scrap' },
-              { step: '2', title: 'Sorting', desc: 'Material segregation and cleaning' },
-              { step: '3', title: 'Processing', desc: 'Advanced reprocessing technology' },
-              { step: '4', title: 'Quality Check', desc: 'Rigorous testing and packaging' }
-            ].map((process, index) => {
-              const animationClass = index % 2 === 0 ? 'animate-fade-in-left' : 'animate-fade-in-right'; // Alternate
-              return (
-                <div
-                  key={index}
-                  className={`text-center transition-all duration-700 ${recyclingInView ? `opacity-100 ${animationClass}` : 'opacity-0'}`}
-                  style={{ animationDelay: `${0.3 + 0.1 * index}s` }}
-                >
-                  <div className="bg-primary-500 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto text-white font-bold text-xl">
-                    {process.step}
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{process.title}</h3>
-                  <p className="text-gray-600">{process.desc}</p>
+          <div className={`relative mb-12 transition-all duration-700 ${productsInView ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '0.6s' }}>
+            <div className="bg-primary-500 bg-opacity-20 rounded-2xl p-8 backdrop-blur-sm border border-primary-500">
+              <div className="text-center">
+                {/* <div className="bg-primary-500 w-16 h-16 rounded-xl flex items-center justify-center mb-6 mx-auto animate-pulse-light">
+                  <Atom size={32} className="text-white" />
+                </div> */}
+                <div className="min-h-[120px] flex flex-col justify-center">
+                  <h3 key={products[currentProductIndex].name} className="text-3xl font-bold text-white mb-4 animate-fade-in">
+                    {products[currentProductIndex].name}
+                  </h3>
+                  <p key={products[currentProductIndex].description} className="text-xl text-primary-100 mb-6 animate-fade-in">
+                    {products[currentProductIndex].description}
+                  </p>
                 </div>
-              );
-            })}
+                <div className="flex flex-wrap justify-center gap-3 mb-6">
+                  {products[currentProductIndex].features.map((feature, index) => (
+                    <span
+                      key={index}
+                      className="bg-white bg-opacity-20 text-white px-4 py-2 rounded-full text-sm font-semibold"
+                    >
+                      {feature}
+                    </span>
+                  ))}
+                </div>
+                <p className="text-primary-200 font-semibold">
+                  Minimum Order: {products[currentProductIndex].minOrder}
+                </p>
+              </div>
+            </div>
+
+            {/* Product Navigation Dots */}
+            <div className="flex justify-center mt-6 space-x-2">
+              {products.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentProductIndex(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentProductIndex
+                    ? 'bg-primary-500 scale-125'
+                    : 'bg-white bg-opacity-30 hover:bg-opacity-50'
+                    }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="text-center">
+            <Link
+              to="/products"
+              className="bg-primary-500 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-primary-600 transition-all duration-300 transform hover:scale-105 shadow-lg inline-flex items-center"
+            >
+              View All Products
+              <ArrowRight size={20} className="ml-2" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+
+      {/* Recycling Process Section - Horizontal Scrollable */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              Our <span className="text-primary-500">Recycling Process</span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Advanced recycling technology for superior quality reprocessed granules that meet industrial-grade specifications.
+            </p>
+          </div>
+
+          {/* Horizontal Infinite Scrolling Cards */}
+          <div className="overflow-hidden relative">
+            <div className="flex whitespace-nowrap animate-infinite-scroll">
+              {Array.from({ length: 2 }).map((_, repeatIndex) => (
+                <React.Fragment key={repeatIndex}>
+                  {processSteps.map((process, index) => (
+                    <div
+                      key={`${repeatIndex}-${index}`}
+                      className="flex-shrink-0 w-64 bg-primary-50 rounded-xl border border-primary-200 p-6 m-4 shadow-md text-center"
+                    >
+                      <div className="bg-primary-500 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto text-white font-bold text-xl">
+                        {process.step}
+                      </div>
+                      <h3 className="text-lg font-bold text-gray-900 mb-2">{process.title}</h3>
+                      <p className="text-gray-600 text-sm whitespace-pre-line">{process.desc}</p>
+                    </div>
+                  ))}
+                </React.Fragment>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -461,17 +467,18 @@ const Home: React.FC = () => {
               style={{ animationDelay: '0.4s' }}
             >
               <Phone size={20} className="mr-2" />
-              +91 98251 53084
+              +91 90239 54546
             </a>
             <a
-              href="https://wa.me/919825153084?text=Hello! I'm interested in your plastic granules. Please provide more information."
+              href="https://wa.me/919023954546?text=Hello! I'm interested in your plastic granules. Please provide more information."
               target="_blank"
               rel="noopener noreferrer"
               className={`bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white hover:text-primary-600 transition-all duration-300 transform hover:scale-105 flex items-center justify-center
                 ${ctaInView ? 'opacity-100 animate-fade-in-right' : 'opacity-0'}`}
               style={{ animationDelay: '0.5s' }}
             >
-              <MessageCircle size={20} className="mr-2" />
+
+              <BsWhatsapp size={20} className="mr-2" />
               WhatsApp Us
             </a>
           </div>

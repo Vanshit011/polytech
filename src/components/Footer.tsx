@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Atom, MapPin, Phone, Clock, MessageCircle } from 'lucide-react';
+import { BsWhatsapp } from "react-icons/bs";
 import logo from "../assets/logo-crop.png";
 import fontimage from '../assets/logo-font-removebg-preview.png';
 
@@ -9,7 +10,7 @@ const Footer: React.FC = () => {
     <footer className="bg-white text-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          
+
           {/* Company Info */}
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-3 mb-6">
@@ -51,27 +52,28 @@ const Footer: React.FC = () => {
               <div className="flex items-center">
                 <Phone size={18} className="mr-3 text-primary-500" />
                 <a href="tel:+919825153084" className="hover:text-primary-500 transition-colors">
-                  +91 98251 53084
+                  +91 98251 53084 <br />
+                  +91 90239 54546
                 </a>
               </div>
               <div className="flex items-center">
-                <MessageCircle size={18} className="mr-3 text-primary-500" />
+                <BsWhatsapp size={18} className="mr-3 text-primary-500" />
                 <a
                   href="https://wa.me/919825153084"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-primary-500 transition-colors"
                 >
-                  WhatsApp Support
+                  +91 90239 54546
                 </a>
               </div>
-              <div className="flex items-center">
+              {/* <div className="flex items-center">
                 <Clock size={18} className="mr-3 text-primary-500" />
                 <div>
                   <p>Mon - Sat: 9:00 AM - 8:00 PM</p>
                   <p className="text-red-500">Wednesday: CLOSED</p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -112,7 +114,8 @@ const Footer: React.FC = () => {
                 rel="noopener noreferrer"
                 className="flex items-center text-gray-600 text-sm hover:text-primary-500 transition"
               >
-                <MessageCircle size={16} className="mr-1" />
+                <BsWhatsapp size={16} className="mr-1" />
+
                 Developed by Vanshit Patel
               </a>
             </div>

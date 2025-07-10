@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin');
+
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
@@ -35,6 +37,10 @@ export default {
         'bounce-slow': 'bounce 2s infinite',
       },
       keyframes: {
+         scroll: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-200%)' },
+        },
         // Simple fade in
         fadeIn: {
           '0%': { opacity: '0' },
@@ -85,8 +91,19 @@ export default {
         'pulse-light': 'pulseLight 2s infinite',
         'card-lift': 'cardLift 0.3s ease-in-out forwards', // For hover
         'product-fade': 'productFade 0.5s ease-in-out', // For product transition
+         'infinite-scroll': 'scroll 30s linear infinite',
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        '.no-scrollbar': {
+          'scrollbar-width': 'none',
+          '-ms-overflow-style': 'none',
+          '&::-webkit-scrollbar': { display: 'none' },
+        },
+      });
+    }),
+  ],
 }

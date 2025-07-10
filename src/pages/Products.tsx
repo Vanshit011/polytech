@@ -15,7 +15,7 @@ const Products: React.FC = () => {
   const filteredProducts = allProducts.filter(product => {
     const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         product.description.toLowerCase().includes(searchTerm.toLowerCase());
+      product.description.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
@@ -33,19 +33,22 @@ const Products: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-black text-white py-16">
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-primary-900 opacity-90"></div>
-        <div className="absolute inset-0">
+      <section className="relative bg-black text-white py-16 overflow-hidden">
+        {/* Background gradient + image */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-primary-900 opacity-90"></div>
           <img
             src="https://images.pexels.com/photos/3735218/pexels-photo-3735218.jpeg"
             alt="Plastic Granules"
             className="w-full h-full object-cover opacity-30"
           />
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Foreground Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="flex justify-center mb-6">
-              <div className="bg-primary-500 bg-opacity-20 p-4 rounded-xl backdrop-blur-sm">
+              <div className="bg-primary-500 bg-opacity-20 p-4 rounded-xl backdrop-blur-sm shadow-xl">
                 <Atom size={48} className="text-white" />
               </div>
             </div>
@@ -61,28 +64,29 @@ const Products: React.FC = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-8 bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-6 items-center">
+      <section className="py-6 bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
+          <div className="flex flex-col lg:flex-row gap-8 items-center">
+
             {/* Search */}
-            <div className="relative flex-1 max-w-md">
-              <Search size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <div className="relative flex-1 max-w-xl w-full">
+              <Search size={24} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
                 placeholder="Search products..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition"
               />
             </div>
 
             {/* Category Filter */}
             <div className="flex items-center space-x-4">
-              <Filter size={20} className="text-gray-500" />
+              <Filter size={24} className="text-gray-500" />
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors bg-white"
+                className="px-6 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-base"
               >
                 <option value="all">All Categories</option>
                 {categories.slice(1).map(category => (
@@ -90,6 +94,7 @@ const Products: React.FC = () => {
                 ))}
               </select>
             </div>
+
           </div>
         </div>
       </section>
@@ -113,7 +118,7 @@ const Products: React.FC = () => {
                   <span className="text-primary-600 ml-2">({filteredProducts.length})</span>
                 </h2>
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 {filteredProducts.map(product => (
                   <div key={product.id} className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden border border-gray-100">
@@ -129,26 +134,20 @@ const Products: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="p-6">
                       <h3 className="text-xl font-bold text-gray-900 mb-3">
                         {product.name}
                       </h3>
-                      
+
                       <p className="text-gray-600 mb-4 line-clamp-2">
                         {product.description}
                       </p>
 
                       <div className="mb-4">
-                        {product.category === 'HIPS' ? (
-                          <div className="text-sm text-gray-500 mb-2">
-                            <span className="font-semibold">Minimum Order:</span> 1000 KG
-                          </div>
-                        ) : (
-                          <div className="text-sm text-gray-500 mb-2">
-                            <span className="font-semibold">Minimum Order:</span> 500 KG
-                          </div>
-                        )}
+                        <div className="text-sm text-gray-500 mb-2">
+                          <span className="font-semibold">Minimum Order:</span> 500 KG
+                        </div>
                         <div className="text-sm text-primary-600 font-semibold">
                           Other colors available on request
                         </div>
@@ -191,7 +190,7 @@ const Products: React.FC = () => {
               Explore our comprehensive range of reprocessed black plastic granule categories
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {productCategories.map(category => (
               <div key={category.id} className="bg-primary-50 border border-primary-200 rounded-2xl p-6 hover:shadow-lg transition-all duration-300">
