@@ -85,7 +85,7 @@ const Footer: React.FC = () => {
               <li className="hover:text-primary-500 transition-colors cursor-pointer">PC Black</li>
               <li className="hover:text-primary-500 transition-colors cursor-pointer">HIPS Black</li>
               <li className="hover:text-primary-500 transition-colors cursor-pointer">PC/ABS Black</li>
-              <li className="hover:text-primary-500 transition-colors cursor-pointer">PC/PBT</li>
+              <li className="hover:text-primary-500 transition-colors cursor-pointer">PC/PBT Black</li>
               <li className="text-primary-500 text-sm">Other colors on request</li>
               <li className="text-primary-500 text-sm">Minimum Order: 500 KG</li>
             </ul>
