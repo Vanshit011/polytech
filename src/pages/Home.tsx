@@ -43,7 +43,7 @@ const Home: React.FC = () => {
   const stats = [
     { number: '25+', label: 'Years Experience' },
     { number: '3000+', label: 'Tons Annual Capacity' },
-    { number: '100%', label: 'Quality Assured' },
+    { number: '99%', label: 'Quality Assured' },
     { number: '500+', label: 'Satisfied Clients' }
   ];
 
@@ -73,6 +73,18 @@ const Home: React.FC = () => {
       description: 'Premium blend combining PC and ABS properties',
       minOrder: '500 KG',
       features: ['Best of Both', 'Excellent Processing', 'Superior Performance']
+    },
+    {
+      name: 'pc/pbt',
+      description: 'High-performance PC/PBT blend with excellent toughness.',
+      minOrder: '500 KG',
+      features: [
+        'Excellent Impact Resistance',
+        'Superior Chemical Resistance',
+        'High Dimensional Stability',
+        'Flame Retardant Options',
+        'Low Moisture Absorption'
+      ]
     }
   ];
 
@@ -99,7 +111,7 @@ const Home: React.FC = () => {
     if (statsInView) { // Only animate when the stats section is in view
       const intervals = stats.map((stat, index) => {
         const numericValue = parseFloat(stat.number);
-        const step = Math.ceil(numericValue / 80);
+        const step = Math.ceil(numericValue / 150);
 
         return setInterval(() => {
           setCounts((prevCounts) => {
@@ -176,7 +188,7 @@ const Home: React.FC = () => {
               Established in 2000, Polytech Polymers stands as a premier manufacturer specializing in all types of
               engineering plastic grade materials. With over two decades of expertise in polymer reprocessing, we have
               built a reputation for delivering superior quality reprocessed plastic granules that meet the demanding
-              requirements of modern industrial applications. Our advanced manufacturing facility in Gundasara combines
+              requirements of modern industrial applications. Our advanced manufacturing facility in ribda combines
               cutting-edge technology with skilled craftsmanship to produce consistent, reliable polymer solutions.
             </p>
 
@@ -211,29 +223,29 @@ const Home: React.FC = () => {
       {/* Stats Section */}
       <section ref={statsRef} className="py-16 bg-white">
         {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => {
-              const suffix = stat.number.replace(/[0-9+.]/g, '').trim();
-              const hasPlus = stat.number.includes('+');
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {stats.map((stat, index) => {
+            const suffix = stat.number.replace(/[0-9+.]/g, '').trim();
+            const hasPlus = stat.number.includes('+');
 
-              // Alternate left/right entry for stats
-              const animationClass = index % 2 === 0 ? 'animate-fade-in-left' : 'animate-fade-in-right';
+            // Alternate left/right entry for stats
+            const animationClass = index % 2 === 0 ? 'animate-fade-in-left' : 'animate-fade-in-right';
 
-              return (
-                <div
-                  key={index}
-                  className={`text-center transition-all duration-700 ${statsInView ? `opacity-100 ${animationClass}` : 'opacity-0'}`}
-                  style={{ animationDelay: `${0.1 * index}s` }}
-                >
-                  <div className="text-4xl md:text-5xl font-bold text-primary-600 mb-2">
-                    {counts[index]}
-                    {hasPlus && '+'} {suffix}
-                  </div>
-                  <div className="text-gray-600 font-semibold">{stat.label}</div>
+            return (
+              <div
+                key={index}
+                className={`text-center transition-all duration-700 ${statsInView ? `opacity-100 ${animationClass}` : 'opacity-0'}`}
+                style={{ animationDelay: `${0.1 * index}s` }}
+              >
+                <div className="text-4xl md:text-5xl font-bold text-primary-600 mb-2">
+                  {counts[index]}
+                  {hasPlus && '+'} {suffix}
                 </div>
-              );
-            })}
-          </div>
+                <div className="text-gray-600 font-semibold">{stat.label}</div>
+              </div>
+            );
+          })}
+        </div>
         {/* </div> */}
       </section>
 
