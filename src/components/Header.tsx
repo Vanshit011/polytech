@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, MessageCircle } from 'lucide-react';
-import logo from "../assets/Polytech Polymares New acrelic Logo-1.png";
-
+import logo from "../assets/logo-crop.png";
+import fontimage from '../assets/logo-font-removebg-preview.png'
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
@@ -11,6 +11,7 @@ const Header: React.FC = () => {
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
     { name: 'Products', href: '/products' },
+    { name: 'Sell Scrap', href: '/sell-scrap' },
     { name: 'Contact', href: '/contact' },
   ];
 
@@ -22,29 +23,13 @@ const Header: React.FC = () => {
       <div className="bg-primary-500 text-white py-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center text-sm">
-            <div className="flex items-center space-x-6">
-              {/* Phone Link */}
-              <a href="tel:+919825153084" className="flex items-center hover:underline">
-                <Phone size={14} className="mr-2" />
-                <span>+91 98251 53084</span>
-              </a>
-
-              {/* WhatsApp Link */}
-              <a
-                href="https://wa.me/919825153084"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden md:flex items-center hover:underline"
-              >
-                <MessageCircle size={14} className="mr-2" />
-                <span>WhatsApp Support Available</span>
-              </a>
+            <div className="flex items-center">
+              <span className="font-semibold">Quality Engineering Plastics • Trusted Since 2000</span>
             </div>
-
-            <div className="hidden md:block">
-              <span className="font-semibold">
-                Reprocess Plastic Granules Manufacturer • Since 2000
-              </span>
+            <div className="hidden md:flex items-center space-x-4">
+              <span className="font-bold text-primary-100">🏭 Premium Polymer Solutions</span>
+              <span className="text-primary-200">•</span>
+              <span className="font-bold text-primary-100">♻️ Sustainable Manufacturing</span>
             </div>
           </div>
         </div>
@@ -60,12 +45,15 @@ const Header: React.FC = () => {
             <img
               src={logo}
               alt="Polytech Logo"
-              className="w-14 h-14 object-contain "
+              className="w-15 h-14 object-contain "
             />
             {/* </div> */}
-            <div>
-              <h1 className="text-2xl font-bold polymer-text">POLYTECH</h1>
-              <p className="text-sm text-gray-600 font-semibold">POLYMERS</p>
+            <div className=" rounded-xl ">
+              <img
+                src={fontimage}
+                alt="Polytech Polymers"
+                className="h-12 w-auto"
+              />
             </div>
           </Link>
 

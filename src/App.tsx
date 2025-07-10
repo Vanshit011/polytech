@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Products from './pages/Products';
 import Contact from './pages/Contact';
+import SellScrap from './pages/SellScrap';
 import ScrollToTop from './components/ScrollToTop'; // ✅ Correct import with uppercase
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/sell-scrap" element={<SellScrap />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>

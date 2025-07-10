@@ -9,7 +9,8 @@ interface ProductModalProps {
 
 const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
   const getWhatsAppMessage = (productName: string) => {
-    return `Hello! I'm interested in getting a quote for ${productName}. Please provide pricing and availability details. Minimum order: 500 KG.`;
+    const minOrder = productName.includes('HIPS') ? '1000 KG' : '500 KG';
+    return `Hello! I'm interested in getting a quote for ${productName}. Please provide pricing and availability details. Minimum order: ${minOrder}.`;
   };
 
   const getWhatsAppUrl = (productName: string) => {
@@ -52,7 +53,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
                 </div>
                 <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
                   <div className="text-yellow-800 font-semibold text-center">
-                    Minimum Order: 500 KG
+                    Minimum Order: {product.name.includes('HIPS') ? '1000 KG' : '500 KG'}
                   </div>
                   <div className="text-yellow-700 text-sm text-center mt-1">
                     Other colors available on request

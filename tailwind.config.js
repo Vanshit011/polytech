@@ -35,12 +35,58 @@ export default {
         'bounce-slow': 'bounce 2s infinite',
       },
       keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-10px)' }
+        // Simple fade in
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        // Slide in from bottom (up)
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        // Slide in from left
+        fadeInLeft: {
+          '0%': { opacity: '0', transform: 'translateX(-20px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        // Slide in from right
+        fadeInRight: {
+          '0%': { opacity: '0', transform: 'translateX(20px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        // Slide in from top (down)
+        fadeInDown: {
+          '0%': { opacity: '0', transform: 'translateY(-20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        // Subtle pulse for icons/elements
+        pulseLight: {
+          '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+          '50%': { transform: 'scale(1.05)', opacity: '0.9' },
+        },
+        // Product card hover/focus animation
+        cardLift: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-5px)' },
+        },
+        // Product auto-scroll fade effect
+        productFade: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.5' }, // Slightly fade out in middle of transition
         }
-      }
+      },
+      animation: {
+        'fade-in': 'fadeIn 1s ease-out forwards',
+        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+        'fade-in-left': 'fadeInLeft 0.8s ease-out forwards',
+        'fade-in-right': 'fadeInRight 0.8s ease-out forwards',
+        'fade-in-down': 'fadeInDown 0.8s ease-out forwards',
+        'pulse-light': 'pulseLight 2s infinite',
+        'card-lift': 'cardLift 0.3s ease-in-out forwards', // For hover
+        'product-fade': 'productFade 0.5s ease-in-out', // For product transition
+      },
     },
   },
   plugins: [],
-};
+}

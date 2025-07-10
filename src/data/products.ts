@@ -109,7 +109,7 @@ export const productCategories: ProductCategory[] = [
           'Tensile Strength: 20-35 MPa',
           'Density: 1.04-1.06 g/cm³',
           'Processing Temperature: 180-220°C',
-          'Minimum Order: 500 KG'
+          'Minimum Order: 1000 KG'
         ],
         features: [
           'UV stable black color',
