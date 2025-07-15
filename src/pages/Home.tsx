@@ -1,25 +1,36 @@
 // src/pages/Home.tsx (or .jsx)
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Atom, Recycle, Award, Phone, ArrowRight, CheckCircle, Star, ShoppingCart, MessageCircle, Target, Eye } from 'lucide-react';
 import { useInView } from 'react-intersection-observer';
 import { BsWhatsapp } from "react-icons/bs";
-
-
+import first from '../assets/first.mp4';
+// import second from '../assets/second.mp4';
+import third from '../assets/third.mp4';
+import four from '../assets/four.mp4';
+import five from '../assets/five.mp4';
+// import six from '../assets/six.mp4';
+import seven from '../assets/seven.mp4';
+import eight from '../assets/eight.mp4';
+// import nine from '../assets/nine.mp4';
+// import tenth from '../assets/tenth.mp4';
+// import eleventh from '../assets/eleventh.mp4';
+// import twelfth from '../assets/twelfth.mp4';
 import home_background from '../assets/20250710_1351_Colorful Granules Display_simple_compose_01jzspprb6ex0vyk2kwdgpmsg6.png';
-
 
 const Home: React.FC = () => {
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const videoRefs = useRef<HTMLVideoElement[]>([]);
 
   // States for scroll-triggered animations
-  const { ref: heroRef, inView: heroInView } = useInView({ triggerOnce: true, threshold: 0.1 });
-  const { ref: statsRef, inView: statsInView } = useInView({ triggerOnce: true, threshold: 0.2 });
-  const { ref: featuresRef, inView: featuresInView } = useInView({ triggerOnce: true, threshold: 0.2 });
-  const { ref: expertiseRef, inView: expertiseInView } = useInView({ triggerOnce: true, threshold: 0.2 });
+  // const { ref: heroRef, inView: heroInView } = useInView({ triggerOnce: true, threshold: 0.1 });
+  // const { ref: statsRef, inView: statsInView } = useInView({ triggerOnce: true, threshold: 0.2 });
+  // const { ref: featuresRef, inView: featuresInView } = useInView({ triggerOnce: true, threshold: 0.2 });
+  // const { ref: expertiseRef, inView: expertiseInView } = useInView({ triggerOnce: true, threshold: 0.2 });
   const { ref: productsRef, inView: productsInView } = useInView({ triggerOnce: true, threshold: 0.1 });
   // const { ref: recyclingRef, inView: recyclingInView } = useInView({ triggerOnce: true, threshold: 0.2 });
-  const { ref: ctaRef, inView: ctaInView } = useInView({ triggerOnce: true, threshold: 0.2 });
+  // const { ref: ctaRef, inView: ctaInView } = useInView({ triggerOnce: true, threshold: 0.2 });
 
 
   const features = [
@@ -44,10 +55,10 @@ const Home: React.FC = () => {
     { number: '25+', label: 'Years Experience' },
     { number: '3000+', label: 'Tons Annual Capacity' },
     { number: '99%', label: 'Quality Assured' },
-    { number: '500+', label: 'Satisfied Clients' }
+    { number: '500+', label: 'Satisfied Clients' },
   ];
 
-  const [counts, setCounts] = useState<number[]>(stats.map(() => 0));
+  // const [counts, setCounts] = useState<number[]>(stats.map(() => 0));
   const products = [
     {
       name: 'ABS Black',
@@ -86,12 +97,16 @@ const Home: React.FC = () => {
     }
   ];
 
-  const processSteps = [
-    { step: '1', title: 'Collection', desc: 'Sourcing quality plastic scrap\nfrom verified suppliers.\nEnsuring clean & high-grade materials.' },
-    { step: '2', title: 'Sorting', desc: 'Careful segregation & cleaning\nof plastic materials.\nRemoving impurities and sorting by type.' },
-    { step: '3', title: 'Processing', desc: 'Advanced machinery reprocessing\nplastic scrap into granules.\nEnsuring quality & consistency.' },
-    { step: '4', title: 'Quality Check', desc: 'Rigorous testing and inspections.\nEnsuring product meets industrial standards.\nSafe & ready for delivery.' }
+  const processSteps: { title: string; video: string }[] = [
+    { title: '1. Mixing Zone', video: first as string },
+    { title: '2. Ready for Melt', video: third as string },
+    { title: '3. Ready for Extrusion Machine', video: four as string },
+    { title: '4. Melting Process', video: five as string },
+    { title: '5. Cutting', video: seven as string },
+    { title: '6. High Quality Granules', video: eight as string },
+    // { title: 'Final Granules', video: nine as string }
   ];
+
 
   // Auto-scroll every 2 seconds for products
   useEffect(() => {
@@ -103,39 +118,32 @@ const Home: React.FC = () => {
     return () => clearInterval(interval);
   }, [products.length]);
 
+  // product timeout running
 
-  // Animated number counting for stats
+  // Play only current video
   useEffect(() => {
-    if (statsInView) { // Only animate when the stats section is in view
-      const intervals = stats.map((stat, index) => {
-        const numericValue = parseFloat(stat.number);
-        const step = Math.ceil(numericValue / 150);
+    videoRefs.current.forEach((video, index) => {
+      if (video) {
+        if (index === currentIndex) {
+          video.currentTime = 0;
+          video.play().catch((e) => console.error("Play error:", e));
+        } else {
+          video.pause();
+        }
+      }
+    });
 
-        return setInterval(() => {
-          setCounts((prevCounts) => {
-            const newCounts = [...prevCounts];
-            if (newCounts[index] < numericValue) {
-              newCounts[index] += step;
-              if (newCounts[index] > numericValue) {
-                newCounts[index] = numericValue;
-              }
-            } else {
-              clearInterval(intervals[index]);
-            }
-            return newCounts;
-          });
-        }, 20);
-      });
+    const timeout = setTimeout(() => {
+      setCurrentIndex((prev) => (prev + 1) % processSteps.length);
+    }, 5000);
 
-      return () => intervals.forEach(clearInterval);
-    }
-  }, [stats, statsInView]);
-
+    return () => clearTimeout(timeout);
+  }, [currentIndex]);
 
   return (
     <div className="min-h-screen font-sans">
       {/* Hero Section */}
-      <section ref={heroRef} className="relative bg-black text-white overflow-hidden">
+      <section className="relative bg-black text-white overflow-hidden">
         {/* Overlay & Background Image */}
         {/* <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-primary-900 opacity-90"></div> */}
         <div className="absolute inset-0">
@@ -152,13 +160,13 @@ const Home: React.FC = () => {
             {/* Title - split for left/right animation */}
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
               <span
-                className={`block transition-all duration-1000 ${heroInView ? 'opacity-100 animate-fade-in-left' : 'opacity-0'}`}
+                className={`block transition-all duration-1000  ? 'opacity-100 animate-fade-in-left' : 'opacity-0'}`}
                 style={{ animationDelay: '0.2s' }}
               >
                 POLYTECH
               </span>
               <span
-                className={`block text-3xl md:text-4xl text-primary-200 transition-all duration-1000 ${heroInView ? 'opacity-100 animate-fade-in-right' : 'opacity-0'}`}
+                className={`block text-3xl md:text-4xl text-primary-200 transition-all duration-1000  ? 'opacity-100 animate-fade-in-right' : 'opacity-0'}`}
                 style={{ animationDelay: '0.4s' }}
               >
                 POLYMERS
@@ -166,21 +174,21 @@ const Home: React.FC = () => {
             </h1>
 
             <div
-              className={`bg-primary-500 text-white px-6 py-2 rounded-full text-lg font-bold mb-8 inline-block shadow-md transition-all duration-1000 ${heroInView ? 'opacity-100 animate-fade-in-down' : 'opacity-0'}`}
+              className={`bg-primary-500 text-white px-6 py-2 rounded-full text-lg font-bold mb-8 inline-block shadow-md transition-all duration-1000  ? 'opacity-100 animate-fade-in-down' : 'opacity-0'}`}
               style={{ animationDelay: '0.6s' }}
             >
               Since 2000
             </div>
 
             <p
-              className={`text-xl md:text-2xl mb-6 text-primary-100 max-w-3xl mx-auto leading-relaxed transition-all duration-1000 ${heroInView ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`}
+              className={`text-xl md:text-2xl mb-6 text-primary-100 max-w-3xl mx-auto leading-relaxed transition-all duration-1000  ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`}
               style={{ animationDelay: '0.8s' }}
             >
-              Reprocessed Plastic Granules Manufacturer
+              Reprocessed engineering plastic granules manufacturer
             </p>
 
             <p
-              className={`text-lg mb-12 text-gray-300 max-w-4xl mx-auto leading-relaxed transition-all duration-1000 ${heroInView ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`}
+              className={`text-lg mb-12 text-gray-300 max-w-4xl mx-auto leading-relaxed transition-all duration-1000  ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`}
               style={{ animationDelay: '1s' }}
             >
               Established in 2000, Polytech Polymers stands as a premier manufacturer specializing in all types of
@@ -197,7 +205,7 @@ const Home: React.FC = () => {
               <Link
                 to="/products"
                 className={`bg-primary-500 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-primary-600 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center
-                  ${heroInView ? 'opacity-100 animate-fade-in-left' : 'opacity-0'}`}
+                   ? 'opacity-100 animate-fade-in-left' : 'opacity-0'}`}
                 style={{ animationDelay: '1.2s' }}
               >
                 View Products
@@ -207,7 +215,7 @@ const Home: React.FC = () => {
               <a
                 href="tel:+919023954546"
                 className={`bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105 flex items-center justify-center
-                  ${heroInView ? 'opacity-100 animate-fade-in-right' : 'opacity-0'}`}
+                  ? 'opacity-100 animate-fade-in-right' : 'opacity-0'}`}
                 style={{ animationDelay: '1.4s' }}
               >
                 <Phone size={20} className="mr-2" />
@@ -219,45 +227,58 @@ const Home: React.FC = () => {
       </section>
 
       {/* Stats Section */}
-      <section ref={statsRef} className="py-16 bg-white">
-        {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <section className="py-16 bg-white">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {stats.map((stat, index) => {
-            const suffix = stat.number.replace(/[0-9+.]/g, '').trim();
-            const hasPlus = stat.number.includes('+');
+            const [count, setCount] = useState(0);
 
-            // Alternate left/right entry for stats
-            const animationClass = index % 2 === 0 ? 'animate-fade-in-left' : 'animate-fade-in-right';
+            useEffect(() => {
+              const numberString = String(stat.number); // Ensure it's a string
+              const end = parseInt(numberString.replace(/[^\d]/g, '')) || 0;
+              // const suffix = numberString.replace(/[\d]/g, '');
+              const duration = 4000;
+              const steps = 60;
+              const increment = Math.ceil(end / steps);
+              const intervalTime = Math.floor(duration / steps);
+              let current = 0;
+
+              const timer = setInterval(() => {
+                current += increment;
+                if (current >= end) {
+                  current = end;
+                  clearInterval(timer);
+                }
+                setCount(current);
+              }, intervalTime);
+
+              return () => clearInterval(timer);
+            }, [stat.number]);
+
+            const suffix = String(stat.number).replace(/[\d]/g, '');
 
             return (
-              <div
-                key={index}
-                className={`text-center transition-all duration-700 ${statsInView ? `opacity-100 ${animationClass}` : 'opacity-0'}`}
-                style={{ animationDelay: `${0.1 * index}s` }}
-              >
+              <div key={index} className="transition-all duration-300">
                 <div className="text-4xl md:text-5xl font-bold text-primary-600 mb-2">
-                  {counts[index]}
-                  {hasPlus && '+'} {suffix}
+                  {count}{suffix}
                 </div>
                 <div className="text-gray-600 font-semibold">{stat.label}</div>
               </div>
             );
           })}
         </div>
-        {/* </div> */}
       </section>
 
       {/* Features Section */}
-      <section ref={featuresRef} className="py-20 bg-gray-50">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2
-              className={`text-4xl md:text-5xl font-bold text-gray-900 mb-6 transition-all duration-700 ${featuresInView ? 'opacity-100 animate-fade-in-down' : 'opacity-0'}`}
+              className={`text-4xl md:text-5xl font-bold text-gray-900 mb-6 transition-all duration-700  ? 'opacity-100 animate-fade-in-down' : 'opacity-0'}`}
             >
               Why Choose <span className="text-primary-500">Polytech Polymers</span>?
             </h2>
             <p
-              className={`text-xl text-gray-600 max-w-3xl mx-auto transition-all duration-700 ${featuresInView ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`}
+              className={`text-xl text-gray-600 max-w-3xl mx-auto transition-all duration-700  ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`}
               style={{ animationDelay: '0.2s' }}
             >
               Leading manufacturer of engineering plastic grades with unmatched expertise,
@@ -269,7 +290,7 @@ const Home: React.FC = () => {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className={`bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 ${featuresInView ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`}
+                className={`bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2  ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`}
                 style={{ animationDelay: `${0.3 + 0.1 * index}s` }}
               >
                 <div className="bg-primary-500 w-16 h-16 rounded-xl flex items-center justify-center mb-6 mx-auto">
@@ -282,7 +303,7 @@ const Home: React.FC = () => {
           </div>
 
           {/* Additional Why Choose Us Content - Expertise */}
-          <div ref={expertiseRef} className={`mt-16 bg-white rounded-2xl shadow-lg p-8 transition-all duration-700 ${expertiseInView ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`}
+          <div className={`mt-16 bg-white rounded-2xl shadow-lg p-8 transition-all duration-700 ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`}
             style={{ animationDelay: '0.6s' }}>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
@@ -299,7 +320,7 @@ const Home: React.FC = () => {
                     'Reliable supply chain and delivery schedules'
                   ].map((item, index) => (
                     <div key={index}
-                      className={`flex items-center transition-all duration-700 ${expertiseInView ? 'opacity-100 animate-fade-in-left' : 'opacity-0'}`}
+                      className={`flex items-center transition-all duration-700  'opacity-100 animate-fade-in-left' : 'opacity-0'}`}
                       style={{ animationDelay: `${0.7 + 0.1 * index}s` }}
                     >
                       <CheckCircle size={20} className="text-primary-500 mr-3 flex-shrink-0" />
@@ -312,7 +333,7 @@ const Home: React.FC = () => {
               {/* Vision & Mission */}
               <div className="space-y-8">
                 <div
-                  className={`bg-primary-50 rounded-xl p-6 border border-primary-200 transition-all duration-700 ${expertiseInView ? 'opacity-100 animate-fade-in-right' : 'opacity-0'}`}
+                  className={`bg-primary-50 rounded-xl p-6 border border-primary-200 transition-all duration-700  ? 'opacity-100 animate-fade-in-right' : 'opacity-0'}`}
                   style={{ animationDelay: '0.8s' }}
                 >
                   <div className="flex items-center mb-4">
@@ -329,7 +350,7 @@ const Home: React.FC = () => {
                 </div>
 
                 <div
-                  className={`bg-gray-50 rounded-xl p-6 border border-gray-200 transition-all duration-700 ${expertiseInView ? 'opacity-100 animate-fade-in-right' : 'opacity-0'}`}
+                  className={`bg-gray-50 rounded-xl p-6 border border-gray-200 transition-all duration-700 ? 'opacity-100 animate-fade-in-right' : 'opacity-0'}`}
                   style={{ animationDelay: '0.9s' }}
                 >
                   <div className="flex items-center mb-4">
@@ -354,13 +375,13 @@ const Home: React.FC = () => {
       <section ref={productsRef} className="py-20 bg-black text-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className={`text-4xl md:text-5xl font-bold mb-6 transition-all duration-700 ${productsInView ? 'opacity-100 animate-fade-in-down' : 'opacity-0'}`}>
+            <h2 className={`text-4xl md:text-5xl font-bold mb-6 transition-all duration-700  ? 'opacity-100 animate-fade-in-down' : 'opacity-0'}`}>
               Our <span className="text-primary-500">Product Range</span>
             </h2>
-            <p className={`text-xl text-gray-300 max-w-3xl mx-auto mb-8 transition-all duration-700 ${productsInView ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '0.2s' }}>
+            <p className={`text-xl text-gray-300 max-w-3xl mx-auto mb-8 transition-all duration-700  ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '0.2s' }}>
               Specialized in black granules for industrial applications
             </p>
-            <p className={`text-lg text-primary-200 transition-all duration-700 ${productsInView ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '0.4s' }}>
+            <p className={`text-lg text-primary-200 transition-all duration-700 ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '0.4s' }}>
               We can supply other colors on request
             </p>
           </div>
@@ -422,8 +443,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-
-      {/* Recycling Process Section - Horizontal Scrollable */}
+      {/* Recycling Process Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -431,41 +451,61 @@ const Home: React.FC = () => {
               Our <span className="text-primary-500">Recycling Process</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Advanced recycling technology for superior quality reprocessed granules that meet industrial-grade specifications.
+              See our actual process from mixing to high-quality plastic granules production.
             </p>
           </div>
 
-          {/* Horizontal Infinite Scrolling Cards */}
-          <div className="overflow-hidden relative">
-            <div className="flex whitespace-nowrap animate-infinite-scroll">
-              {Array.from({ length: 2 }).map((_, repeatIndex) => (
-                <React.Fragment key={repeatIndex}>
-                  {processSteps.map((process, index) => (
-                    <div
-                      key={`${repeatIndex}-${index}`}
-                      className="flex-shrink-0 w-64 bg-primary-50 rounded-xl border border-primary-200 p-6 m-4 shadow-md text-center"
-                    >
-                      <div className="bg-primary-500 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto text-white font-bold text-xl">
-                        {process.step}
-                      </div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-2">{process.title}</h3>
-                      <p className="text-gray-600 text-sm whitespace-pre-line">{process.desc}</p>
-                    </div>
-                  ))}
-                </React.Fragment>
-              ))}
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {processSteps.map((step, index) => (
+              <div
+                key={index}
+                className={`bg-gray-100 rounded-xl shadow-md overflow-hidden border border-gray-300 p-4 transition-all duration-300 ${index === currentIndex ? 'opacity-100 scale-100' : 'opacity-60 scale-95'
+                  }`}
+              >
+                <h3 className="text-lg font-bold mb-2 text-center text-gray-800">{step.title}</h3>
+                <video
+                  ref={(el) => (videoRefs.current[index] = el!)}
+                  src={step.video}
+                  muted
+                  playsInline
+                  controls={false}
+                  className="w-full h-48 object-cover rounded-lg cursor-pointer"
+                  onMouseEnter={() => {
+                    videoRefs.current.forEach((video, i) => {
+                      if (video) {
+                        if (i === index) {
+                          video.currentTime = 0;
+                          video.play().catch(() => { });
+                        } else {
+                          video.pause();
+                          video.currentTime = 0;
+                        }
+                      }
+                    });
+                  }}
+                  onMouseLeave={() => {
+                    const video = videoRefs.current[index];
+                    if (video) {
+                      video.pause();
+                      video.currentTime = 0;
+                    }
+                  }}
+                />
+
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
+
       {/* CTA Section */}
-      <section ref={ctaRef} className="py-20 bg-primary-500 text-white">
+      <section className="py-20 bg-primary-500 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className={`text-4xl md:text-5xl font-bold mb-6 transition-all duration-700 ${ctaInView ? 'opacity-100 animate-fade-in-down' : 'opacity-0'}`}>
+          <h2 className={`text-4xl md:text-5xl font-bold mb-6 transition-all duration-700  ? 'opacity-100 animate-fade-in-down' : 'opacity-0'}`}>
             Ready for <span className="text-black">Quality Granules</span>?
           </h2>
-          <p className={`text-xl text-primary-100 mb-12 max-w-3xl mx-auto transition-all duration-700 ${ctaInView ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '0.2s' }}>
+          <p className={`text-xl text-primary-100 mb-12 max-w-3xl mx-auto transition-all duration-700  ? 'opacity-100 animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '0.2s' }}>
             Contact us today for premium quality reprocessed plastic granules and expert consultation
           </p>
 
@@ -473,7 +513,7 @@ const Home: React.FC = () => {
             <a
               href="tel:+919825153084"
               className={`bg-white text-primary-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center
-                ${ctaInView ? 'opacity-100 animate-fade-in-left' : 'opacity-0'}`}
+                ? 'opacity-100 animate-fade-in-left' : 'opacity-0'}`}
               style={{ animationDelay: '0.4s' }}
             >
               <Phone size={20} className="mr-2" />
@@ -484,7 +524,7 @@ const Home: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               className={`bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white hover:text-primary-600 transition-all duration-300 transform hover:scale-105 flex items-center justify-center
-                ${ctaInView ? 'opacity-100 animate-fade-in-right' : 'opacity-0'}`}
+                 ? 'opacity-100 animate-fade-in-right' : 'opacity-0'}`}
               style={{ animationDelay: '0.5s' }}
             >
 
