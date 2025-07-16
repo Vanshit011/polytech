@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Search, Filter, Atom, MessageCircle } from 'lucide-react';
 import { productCategories } from '../data/products';
-import ProductCard from '../components/ProductCard';
+// import ProductCard from '../components/ProductCard';
 import ProductModal from '../components/ProductModal';
 import { Product } from '../types';
+import background_product from '../assets/20250710_1347_Colorful Granules Background_simple_compose_01jzspdzd8ea9by12x4491ze4j.png'
 
 const Products: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -27,7 +28,7 @@ const Products: React.FC = () => {
 
   const getWhatsAppUrl = (productName: string) => {
     const message = encodeURIComponent(getWhatsAppMessage(productName));
-    return `https://wa.me/919825153084?text=${message}`;
+    return `https://wa.me/919023954546?text=${message}`;
   };
 
   return (
@@ -38,7 +39,7 @@ const Products: React.FC = () => {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-primary-900 opacity-90"></div>
           <img
-            src="https://images.pexels.com/photos/3735218/pexels-photo-3735218.jpeg"
+            src={background_product}
             alt="Plastic Granules"
             className="w-full h-full object-cover opacity-30"
           />
@@ -48,9 +49,9 @@ const Products: React.FC = () => {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="flex justify-center mb-6">
-              <div className="bg-primary-500 bg-opacity-20 p-4 rounded-xl backdrop-blur-sm shadow-xl">
+              {/* <div className="bg-primary-500 bg-opacity-20 p-4 rounded-xl backdrop-blur-sm shadow-xl">
                 <Atom size={48} className="text-white" />
-              </div>
+              </div> */}
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Products</h1>
             <p className="text-xl text-primary-100 max-w-3xl mx-auto mb-4">
@@ -187,16 +188,16 @@ const Products: React.FC = () => {
               Product <span className="primary-text">Categories</span>
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Explore our comprehensive range of reprocessed black plastic granule categories
+              Explore our comprehensive range of reprocess engineering black plastic granules categories
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {productCategories.map(category => (
               <div key={category.id} className="bg-primary-50 border border-primary-200 rounded-2xl p-6 hover:shadow-lg transition-all duration-300">
-                <div className="bg-primary-500 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                {/* <div className="bg-primary-500 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                   <Atom size={24} className="text-white" />
-                </div>
+                </div> */}
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{category.name}</h3>
                 <p className="text-gray-600 mb-4">{category.description}</p>
                 <div className="text-sm text-primary-600 font-semibold">

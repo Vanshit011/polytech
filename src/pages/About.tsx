@@ -1,6 +1,6 @@
 import React from 'react';
 import { Atom, Recycle, Award, Users, Target, CheckCircle, MapPin } from 'lucide-react';
-
+import company_picture from '../assets/20250716_1730_Enhanced Industrial Building Scene_remix_01k09hgw6ef7gvv9gdn7edf1e5.png'
 const About: React.FC = () => {
   const values = [
     {
@@ -50,9 +50,7 @@ const About: React.FC = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="flex justify-center mb-8">
-              <div className="bg-primary-500 bg-opacity-20 p-6 rounded-2xl backdrop-blur-sm">
-                <Atom size={64} className="text-white" />
-              </div>
+
             </div>
             <h1 className="text-5xl md:text-6xl font-bold mb-6">About Polytech Polymers</h1>
             <p className="text-xl md:text-2xl text-primary-100 max-w-4xl mx-auto leading-relaxed">
@@ -73,7 +71,7 @@ const About: React.FC = () => {
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
                 Since 2000, Polytech Polymers has been at the forefront of plastic recycling and reprocessing, 
                 providing high-quality polymer solutions for various industrial applications. 
-                Located in Gundasara, Gujarat, we have established ourselves as a trusted name in the polymer industry.
+                Located in Ribda, Gujarat, we have established ourselves as a trusted name in the polymer industry.
               </p>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
                 Our state-of-the-art manufacturing facility is equipped with modern machinery and quality control systems 
@@ -82,13 +80,13 @@ const About: React.FC = () => {
               </p>
               <p className="text-lg text-gray-600 leading-relaxed">
                 We manufacture a comprehensive range of reprocessed plastic granules including ABS Black, PC Black, 
-                HIPS Black, and PC/ABS Black granules to meet diverse industrial requirements. Our commitment to quality 
+                HIPS Black,PC/PBT and PC/ABS Black granules to meet diverse industrial requirements. Our commitment to quality 
                 and customer satisfaction has made us a preferred supplier for numerous industries.
               </p>
             </div>
             <div className="relative">
               <img
-                src="https://images.pexels.com/photos/3735218/pexels-photo-3735218.jpeg"
+                src={company_picture}
                 alt="Polytech Polymers Factory Exterior"
                 className="rounded-2xl shadow-2xl"
               />
@@ -179,7 +177,7 @@ const About: React.FC = () => {
               Our <span className="primary-text">Location</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Strategically located in the industrial area of Gundasara, Gujarat
+              Strategically located in the industrial area of Ribda, Gujarat
             </p>
           </div>
           
@@ -195,8 +193,8 @@ const About: React.FC = () => {
                     <div>
                       <h4 className="font-semibold text-gray-900">Address</h4>
                       <p className="text-gray-600">
-                        Gundasara Industrial Area,<br />
-                        Gundasara, Gujarat, India
+                        Ribda Industrial Area,<br />
+                        Ribda, Gujarat, India
                       </p>
                     </div>
                   </div>

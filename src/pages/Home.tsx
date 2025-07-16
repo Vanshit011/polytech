@@ -6,22 +6,25 @@ import { useInView } from 'react-intersection-observer';
 import { BsWhatsapp } from "react-icons/bs";
 import first from '../assets/first.mp4';
 // import second from '../assets/second.mp4';
-import third from '../assets/third.mp4';
+// import third from '../assets/third.mp4';
 import four from '../assets/four.mp4';
 import five from '../assets/five.mp4';
-// import six from '../assets/six.mp4';
-import seven from '../assets/seven.mp4';
+import six from '../assets/six.mp4';
+// import seven from '../assets/seven.mp4';
 import eight from '../assets/eight.mp4';
-// import nine from '../assets/nine.mp4';
+import nine from '../assets/nine.mp4';
 // import tenth from '../assets/tenth.mp4';
 // import eleventh from '../assets/eleventh.mp4';
 // import twelfth from '../assets/twelfth.mp4';
+import last from '../assets/last.mp4'
 import home_background from '../assets/20250710_1351_Colorful Granules Display_simple_compose_01jzspprb6ex0vyk2kwdgpmsg6.png';
 
 const Home: React.FC = () => {
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState<number | null>(null);
   const videoRefs = useRef<HTMLVideoElement[]>([]);
+   const containerRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const observer = useRef<IntersectionObserver | null>(null);
 
   // States for scroll-triggered animations
   // const { ref: heroRef, inView: heroInView } = useInView({ triggerOnce: true, threshold: 0.1 });
@@ -99,11 +102,11 @@ const Home: React.FC = () => {
 
   const processSteps: { title: string; video: string }[] = [
     { title: '1. Mixing Zone', video: first as string },
-    { title: '2. Ready for Melt', video: third as string },
-    { title: '3. Ready for Extrusion Machine', video: four as string },
-    { title: '4. Melting Process', video: five as string },
-    { title: '5. Cutting', video: seven as string },
-    { title: '6. High Quality Granules', video: eight as string },
+    { title: '2. Ready for Melt', video: four as string },
+    { title: '3. Melting Process', video: five as string },
+    { title: '4. Temperatur control', video: six as string },
+    { title: '5. Cutting', video: nine as string },
+    { title: '6. High Quality Granules', video: last as string },
     // { title: 'Final Granules', video: nine as string }
   ];
 
@@ -118,27 +121,35 @@ const Home: React.FC = () => {
     return () => clearInterval(interval);
   }, [products.length]);
 
-  // product timeout running
-
-  // Play only current video
+   // Auto-play for 5 seconds when in viewport
   useEffect(() => {
-    videoRefs.current.forEach((video, index) => {
-      if (video) {
-        if (index === currentIndex) {
-          video.currentTime = 0;
-          video.play().catch((e) => console.error("Play error:", e));
-        } else {
-          video.pause();
-        }
-      }
+    observer.current = new IntersectionObserver(
+      entries => {
+        entries.forEach((entry, index) => {
+          const video = videoRefs.current[index];
+          if (video) {
+            if (entry.isIntersecting) {
+              setCurrentIndex(index);
+              video.currentTime = 0;
+              video.play();
+              setTimeout(() => {
+                video.pause();
+              }, 5000); // auto-play 5 sec
+            }
+          }
+        });
+      },
+      { threshold: 0.7 }
+    );
+
+    containerRefs.current.forEach((ref) => {
+      if (ref && observer.current) observer.current.observe(ref);
     });
 
-    const timeout = setTimeout(() => {
-      setCurrentIndex((prev) => (prev + 1) % processSteps.length);
-    }, 5000);
-
-    return () => clearTimeout(timeout);
-  }, [currentIndex]);
+    return () => {
+      if (observer.current) observer.current.disconnect();
+    };
+  }, []);
 
   return (
     <div className="min-h-screen font-sans">

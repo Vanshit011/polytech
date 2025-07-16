@@ -13,6 +13,7 @@ const Contact: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
     // Create WhatsApp message
     const message = `Hello! New inquiry from website:
 Name: ${formData.name}
@@ -21,12 +22,23 @@ Phone: ${formData.phone}
 Company: ${formData.company}
 Message: ${formData.message}`;
 
-    const whatsappUrl = `https://wa.me/919825153084?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/919023954546?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 
+    // ✅ Reset form data
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      company: '',
+      message: '',
+    });
+
+    // Show submitted alert
     setIsSubmitted(true);
     setTimeout(() => setIsSubmitted(false), 3000);
   };
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -53,9 +65,9 @@ Message: ${formData.message}`;
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="flex justify-center mb-6">
-              <div className="bg-primary-500 bg-opacity-20 p-4 rounded-xl backdrop-blur-sm shadow-xl">
+              {/* <div className="bg-primary-500 bg-opacity-20 p-4 rounded-xl backdrop-blur-sm shadow-xl">
                 <Phone size={48} className="text-white" />
-              </div>
+              </div> */}
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
             <p className="text-xl text-primary-100 max-w-3xl mx-auto">
@@ -218,7 +230,7 @@ Message: ${formData.message}`;
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Phone Number</h3>
                     <div className="space-y-2">
                       <a href="tel:+919825153084" className="block text-primary-600 hover:text-primary-700 font-semibold">
-                        +91 98251 53084
+                        +91 90239 54546
                       </a>
                     </div>
                   </div>
@@ -233,7 +245,7 @@ Message: ${formData.message}`;
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Business Hours</h3>
                     <div className="text-gray-600">
                       <p>Monday - Saturday: 9:00 AM - 8:00 PM</p>
-                      <p className="text-red-600 font-semibold">Wednesday: CLOSED</p>
+                      <p className="text-gray-600">Wednesday: CLOSED</p>
                     </div>
                   </div>
                 </div>
@@ -244,13 +256,13 @@ Message: ${formData.message}`;
                 <h3 className="text-lg font-bold text-gray-900 mb-4">Quick Contact</h3>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <a
-                    href="tel:+919825153084"
+                    href="tel:+919023954546"
                     className="flex-1 bg-primary-500 text-white px-6 py-3 rounded-xl font-semibold text-center hover:bg-primary-600 transition-all duration-300"
                   >
                     Call Now
                   </a>
                   <a
-                    href="https://wa.me/919825153084?text=Hello! I'm interested in your plastic granules. Please provide more information."
+                    href="https://wa.me/919023954546?text=Hello! I'm interested in your plastic granules. Please provide more information."
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 bg-transparent border-2 border-primary-500 text-primary-600 px-6 py-3 rounded-xl font-semibold text-center hover:bg-primary-500 hover:text-white transition-all duration-300 flex items-center justify-center"
@@ -281,8 +293,8 @@ Message: ${formData.message}`;
             <div className="aspect-w-16 aspect-h-9 bg-gray-200 rounded-xl flex items-center justify-center">
               <div className="text-center">
                 <MapPin size={48} className="text-primary-500 mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Gundasara Industrial Area</h3>
-                <p className="text-gray-600 mb-4">Gundasara, Gujarat, India</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Ribda Industrial Area</h3>
+                <p className="text-gray-600 mb-4">Ribda, Gujarat, India</p>
                 <a
                   href="https://maps.app.goo.gl/Rs19Pih8B86bTzGQ8"
                   target="_blank"

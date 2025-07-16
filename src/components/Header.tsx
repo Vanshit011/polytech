@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, MessageCircle } from 'lucide-react';
 import logo from "../assets/logo-crop.png";
-import fontimage from '../assets/logo-font-removebg-preview.png'
+import fontimage from '../assets/logo-font-removebg-preview.png';
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();

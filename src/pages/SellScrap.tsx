@@ -1,29 +1,30 @@
 import React from 'react';
 import { ShoppingCart, Phone, MessageCircle, CheckCircle, Recycle, Award, TrendingUp } from 'lucide-react';
-
+import ScrapPic from '../assets/20250716_1842_Industrial Plastic Recycling_simple_compose_01k09np970fj9v6qe2jj5xre7k.png'
 const SellScrap: React.FC = () => {
   const scrapTypes = [
     {
       category: 'HIPS Scrap',
-      types: ['TV Body Scrap', 'Refrigerator Parts', 'Electronic Housings'],
-      description: 'High Impact Polystyrene scrap from various electronic appliances'
+      types: ['TV Body Scrap', 'Refrigerator Parts', 'Electronic Housings', 'Plant Waste'],
+      description: 'High Impact Polystyrene scrap including plant waste and electronic enclosures'
     },
     {
       category: 'ABS Scrap',
-      types: ['Paint ABS', 'Honda ABS', 'Colour ABS', 'Black ABS', 'Automotive Parts'],
+      types: ['Paint ABS', 'Honda ABS', 'Battery Scrap', 'Colour ABS', 'Black ABS', 'Plant Waste'],
       description: 'Acrylonitrile Butadiene Styrene scrap from automotive and industrial sources'
     },
     {
       category: 'PC/ABS Scrap',
-      types: ['PC/ABS Blend', 'Electronic Components', 'Industrial Parts'],
+      types: ['PC/ABS Blend', 'Electronic Components', 'Industrial Parts', 'Plant Waste'],
       description: 'Polycarbonate/ABS blend scrap from high-performance applications'
     },
     {
       category: 'PC Scrap',
-      types: ['PC/PBT Scrap', 'PC Farra', 'Clear PC', 'Colored PC'],
+      types: ['PC/PBT Scrap', 'PC Farra', 'Clear PC', 'Colored PC', 'Plant Waste'],
       description: 'Polycarbonate scrap from various industrial and consumer applications'
     }
   ];
+
 
   const benefits = [
     {
@@ -55,7 +56,7 @@ const SellScrap: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-primary-900 opacity-90"></div>
         <div className="absolute inset-0">
           <img
-            src="https://images.pexels.com/photos/3735218/pexels-photo-3735218.jpeg"
+            src={ScrapPic}
             alt="Plastic Scrap Collection"
             className="w-full h-full object-cover opacity-30"
           />
@@ -63,9 +64,9 @@ const SellScrap: React.FC = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="flex justify-center mb-8">
-              <div className="bg-primary-500 bg-opacity-20 p-6 rounded-2xl backdrop-blur-sm">
+              {/* <div className="bg-primary-500 bg-opacity-20 p-6 rounded-2xl backdrop-blur-sm">
                 <ShoppingCart size={64} className="text-white" />
-              </div>
+              </div> */}
             </div>
             <h1 className="text-5xl md:text-6xl font-bold mb-6">Sell Your Scrap to Us!</h1>
             <p className="text-xl md:text-2xl text-primary-100 max-w-4xl mx-auto leading-relaxed mb-8">
@@ -89,7 +90,7 @@ const SellScrap: React.FC = () => {
               We accept various types of engineering plastic scrap materials for reprocessing
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {scrapTypes.map((scrap, index) => (
               <div key={index} className="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-all duration-300">
@@ -125,7 +126,7 @@ const SellScrap: React.FC = () => {
               Partner with us for reliable, professional, and environmentally responsible scrap disposal
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, index) => (
               <div key={index} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center">
@@ -151,7 +152,7 @@ const SellScrap: React.FC = () => {
               Simple and transparent process for selling your plastic scrap
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
               { step: '1', title: 'Contact Us', desc: 'Call or WhatsApp with scrap details' },
@@ -180,7 +181,7 @@ const SellScrap: React.FC = () => {
               Contact our purchase manager for immediate assistance and competitive quotes
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="bg-white bg-opacity-10 rounded-2xl p-8 backdrop-blur-sm">
               <h3 className="text-2xl font-bold mb-6 text-center">Purchase Manager Contact</h3>
@@ -209,7 +210,7 @@ const SellScrap: React.FC = () => {
                 </div>
               </div>
             </div>
-            
+
             <div>
               <h3 className="text-2xl font-bold mb-6">What We Need to Know</h3>
               <div className="space-y-4">

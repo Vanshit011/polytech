@@ -1,5 +1,7 @@
 import { ProductCategory } from '../types';
-
+import absBlackImage from '../assets/20250707_1907_ABS Black Granules_simple_compose_01jzjhjhceeq3v53bkzccneyvz.png'
+import pcBlackImage from '../assets/20250707_1911_Black Granules Display_simple_compose_01jzjhsz2jeqcvjhsav9mm2g5g.png'
+import hipsBlackImage from '../assets/20250707_1912_Black Granules Pattern_simple_compose_01jzjhy5mae94awqxkg7z03qys.png'
 export const productCategories: ProductCategory[] = [
   {
     id: 'abs',
@@ -27,7 +29,7 @@ export const productCategories: ProductCategory[] = [
           'Heat resistant',
           'Consistent quality'
         ],
-        image: 'https://images.pexels.com/photos/3735218/pexels-photo-3735218.jpeg',
+        image: absBlackImage,
         grade: 'Black',
         color: 'Black',
         applications: [
@@ -73,7 +75,7 @@ export const productCategories: ProductCategory[] = [
           'Superior mechanical properties',
           'Consistent quality'
         ],
-        image: 'https://images.pexels.com/photos/3735218/pexels-photo-3735218.jpeg',
+        image: pcBlackImage,
         grade: 'Black',
         color: 'Black',
         applications: [
@@ -119,7 +121,7 @@ export const productCategories: ProductCategory[] = [
           'Easy to process',
           'Consistent quality'
         ],
-        image: 'https://images.pexels.com/photos/3735218/pexels-photo-3735218.jpeg',
+        image: hipsBlackImage,
         grade: 'Black',
         color: 'Black',
         applications: [
@@ -184,5 +186,52 @@ export const productCategories: ProductCategory[] = [
         ]
       }
     ]
+  },
+  {
+    id: 'pc-pbt',
+    name: 'PC/PBT Granules',
+    description: 'High-performance PC/PBT blend granules offering superior toughness, dimensional stability, and excellent chemical resistance.',
+    products: [
+      {
+        id: 'pc-pbt-black',
+        name: 'PC/PBT Black',
+        category: 'PC/PBT',
+        description: 'High-performance PC/PBT blend granules in black color, offering exceptional chemical resistance, low moisture absorption, and outstanding mechanical properties. Ideal for automotive, electrical, and industrial applications.',
+        specifications: [
+          'Melt Flow Index: 10-25 g/10min',
+          'Impact Strength: 45-70 kJ/m²',
+          'Tensile Strength: 50-65 MPa',
+          'Density: 1.20-1.25 g/cm³',
+          'Processing Temperature: 230-270°C',
+          'Minimum Order: 500 KG'
+        ],
+        features: [
+          'Excellent chemical resistance',
+          'Low moisture absorption',
+          'High dimensional stability',
+          'Good thermal performance',
+          'Tough and durable',
+          'Suitable for high-precision parts'
+        ],
+        image: 'https://images.pexels.com/photos/3735218/pexels-photo-3735218.jpeg',
+        grade: 'Black',
+        color: 'Black',
+        applications: [
+          'Automotive housings and connectors',
+          'Electrical switchgear',
+          'Under-the-hood parts',
+          'Industrial machinery components',
+          'Appliance structural parts'
+        ],
+        properties: [
+          'PC/PBT blend performance',
+          'Resists deformation under heat',
+          'High strength and toughness',
+          'Consistent processing behavior',
+          'Good chemical and wear resistance'
+        ]
+      }
+    ]
   }
+
 ];
