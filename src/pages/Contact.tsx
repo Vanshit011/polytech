@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, Send, Atom, CheckCircle, MessageCircle } from 'lucide-react';
+import ContactUs from '../assets/20250717_1144_Friendly Customer Support_simple_compose_01k0bg6pz3fwzteba7cy56d6jx.png'
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -55,9 +56,9 @@ Message: ${formData.message}`;
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-primary-900 opacity-90"></div>
           <img
-            src="https://images.pexels.com/photos/3735218/pexels-photo-3735218.jpeg"
+            src={ContactUs}
             alt="Contact Us"
-            className="w-full h-full object-cover opacity-30"
+            className="w-full h-full object-cover object-middle opacity-30"
           />
         </div>
 
@@ -167,7 +168,7 @@ Message: ${formData.message}`;
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    rows={6}
+                    rows={10}
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                     placeholder="Tell us about your polymer requirements..."
                   />
@@ -235,7 +236,18 @@ Message: ${formData.message}`;
                     </div>
                   </div>
                 </div>
-
+                {/* Email */}
+                <div className="flex items-start">
+                  <div className="bg-primary-500 p-3 rounded-xl mr-4 flex-shrink-0">
+                    <Mail size={24} className="text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">Email Address</h3>
+                    <a href="mailto:polytechpolymers1981@gmail.com" className="text-primary-600 hover:text-primary-700 font-semibold">
+                      polytechpolymers1981@gmail.com
+                    </a>
+                  </div>
+                </div>
                 {/* Business Hours */}
                 <div className="flex items-start">
                   <div className="bg-primary-500 p-3 rounded-xl mr-4 flex-shrink-0">
@@ -252,7 +264,7 @@ Message: ${formData.message}`;
               </div>
 
               {/* Quick Contact Buttons */}
-              <div className="mt-8 pt-8 border-t border-gray-200">
+              <div className="mt-5 pt-8 border-t border-gray-200">
                 <h3 className="text-lg font-bold text-gray-900 mb-4">Quick Contact</h3>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <a

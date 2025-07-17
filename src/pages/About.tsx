@@ -1,6 +1,7 @@
 import React from 'react';
 import { Atom, Recycle, Award, Users, Target, CheckCircle, MapPin } from 'lucide-react';
 import company_picture from '../assets/20250716_1730_Enhanced Industrial Building Scene_remix_01k09hgw6ef7gvv9gdn7edf1e5.png'
+import AboutUsImage from '../assets/20250717_1214_Eco-Focused Factory Discussion_simple_compose_01k0bhwwcqect9s1d0qq187qk7.png'
 const About: React.FC = () => {
   const values = [
     {
@@ -42,7 +43,7 @@ const About: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-primary-900 opacity-90"></div>
         <div className="absolute inset-0">
           <img
-            src="https://images.pexels.com/photos/3735218/pexels-photo-3735218.jpeg"
+            src={AboutUsImage}
             alt="Factory Exterior View"
             className="w-full h-full object-cover opacity-30"
           />

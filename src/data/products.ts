@@ -2,6 +2,8 @@ import { ProductCategory } from '../types';
 import absBlackImage from '../assets/20250707_1907_ABS Black Granules_simple_compose_01jzjhjhceeq3v53bkzccneyvz.png'
 import pcBlackImage from '../assets/20250707_1911_Black Granules Display_simple_compose_01jzjhsz2jeqcvjhsav9mm2g5g.png'
 import hipsBlackImage from '../assets/20250707_1912_Black Granules Pattern_simple_compose_01jzjhy5mae94awqxkg7z03qys.png'
+import PCABSImage from '../assets/20250717_1154_Black Granules Close-up_simple_compose_01k0bgsdj0e3krg9zwgegx2a3s.png'
+import PCPBTImage from '../assets/20250717_1158_Black PC_PBT Granules_simple_compose_01k0bgzdpzfknr3myb8vr3agz7.png'
 export const productCategories: ProductCategory[] = [
   {
     id: 'abs',
@@ -167,7 +169,7 @@ export const productCategories: ProductCategory[] = [
           'Chemical resistant',
           'Consistent quality'
         ],
-        image: 'https://images.pexels.com/photos/3735218/pexels-photo-3735218.jpeg',
+        image: PCABSImage,
         grade: 'Black',
         color: 'Black',
         applications: [
@@ -213,7 +215,7 @@ export const productCategories: ProductCategory[] = [
           'Tough and durable',
           'Suitable for high-precision parts'
         ],
-        image: 'https://images.pexels.com/photos/3735218/pexels-photo-3735218.jpeg',
+        image: PCPBTImage,
         grade: 'Black',
         color: 'Black',
         applications: [

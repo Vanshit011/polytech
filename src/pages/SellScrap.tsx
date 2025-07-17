@@ -1,6 +1,6 @@
 import React from 'react';
 import { ShoppingCart, Phone, MessageCircle, CheckCircle, Recycle, Award, TrendingUp } from 'lucide-react';
-import ScrapPic from '../assets/20250716_1842_Industrial Plastic Recycling_simple_compose_01k09np970fj9v6qe2jj5xre7k.png'
+import ScrapPic from '../assets/20250717_1129_Plastic Scrap Details_simple_compose_01k0bfbnz1fbavgg4hn0hww201.png'
 const SellScrap: React.FC = () => {
   const scrapTypes = [
     {

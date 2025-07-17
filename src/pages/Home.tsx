@@ -1,7 +1,7 @@
 // src/pages/Home.tsx (or .jsx)
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Atom, Recycle, Award, Phone, ArrowRight, CheckCircle, Star, ShoppingCart, MessageCircle, Target, Eye } from 'lucide-react';
+import { Atom, Recycle, Award, Phone, ArrowRight, CheckCircle, Eye, Target } from 'lucide-react';
 import { useInView } from 'react-intersection-observer';
 import { BsWhatsapp } from "react-icons/bs";
 import first from '../assets/first.mp4';
@@ -11,7 +11,7 @@ import four from '../assets/four.mp4';
 import five from '../assets/five.mp4';
 import six from '../assets/six.mp4';
 // import seven from '../assets/seven.mp4';
-import eight from '../assets/eight.mp4';
+// import eight from '../assets/eight.mp4';
 import nine from '../assets/nine.mp4';
 // import tenth from '../assets/tenth.mp4';
 // import eleventh from '../assets/eleventh.mp4';
@@ -21,10 +21,12 @@ import home_background from '../assets/20250710_1351_Colorful Granules Display_s
 
 const Home: React.FC = () => {
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
-  const [currentIndex, setCurrentIndex] = useState<number | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const videoRefs = useRef<HTMLVideoElement[]>([]);
-   const containerRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const observer = useRef<IntersectionObserver | null>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [start, setStart] = useState(false);
+  // const containerRefs = useRef<(HTMLDivElement | null)[]>([]);
+  // const observer = useRef<IntersectionObserver | null>(null);
 
   // States for scroll-triggered animations
   // const { ref: heroRef, inView: heroInView } = useInView({ triggerOnce: true, threshold: 0.1 });
@@ -89,7 +91,7 @@ const Home: React.FC = () => {
       features: ['Best of Both', 'Excellent Processing', 'Superior Performance']
     },
     {
-      name: 'pc/pbt',
+      name: 'PC/PBT',
       description: 'High-performance PC/PBT blend with excellent toughness.',
       minOrder: '500 KG',
       features: [
@@ -104,7 +106,7 @@ const Home: React.FC = () => {
     { title: '1. Mixing Zone', video: first as string },
     { title: '2. Ready for Melt', video: four as string },
     { title: '3. Melting Process', video: five as string },
-    { title: '4. Temperatur control', video: six as string },
+    { title: '4. temperature Control', video: six as string },
     { title: '5. Cutting', video: nine as string },
     { title: '6. High Quality Granules', video: last as string },
     // { title: 'Final Granules', video: nine as string }
@@ -121,35 +123,90 @@ const Home: React.FC = () => {
     return () => clearInterval(interval);
   }, [products.length]);
 
-   // Auto-play for 5 seconds when in viewport
+  // Auto-play each video one-by-one for 5 seconds
   useEffect(() => {
-    observer.current = new IntersectionObserver(
-      entries => {
-        entries.forEach((entry, index) => {
-          const video = videoRefs.current[index];
-          if (video) {
-            if (entry.isIntersecting) {
-              setCurrentIndex(index);
-              video.currentTime = 0;
-              video.play();
-              setTimeout(() => {
-                video.pause();
-              }, 5000); // auto-play 5 sec
-            }
-          }
-        });
+    const playSequentially = () => {
+      if (!videoRefs.current[currentIndex]) return;
+
+      const video = videoRefs.current[currentIndex];
+      video.currentTime = 0;
+      video.play().catch(() => { });
+
+      const timeout = setTimeout(() => {
+        video.pause();
+        video.currentTime = 0;
+        const nextIndex = (currentIndex + 1) % processSteps.length;
+        setCurrentIndex(nextIndex);
+      }, 5000); // 5 seconds
+
+      return () => clearTimeout(timeout);
+    };
+
+    const clear = playSequentially();
+    return clear;
+  }, [currentIndex]);
+
+  // Auto-play each video one-by-one for 5 seconds
+
+  // Detect when section is in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !start) {
+          setStart(true); // Start when section enters view
+        }
       },
-      { threshold: 0.7 }
+      {
+        threshold: 0.5,
+      }
     );
 
-    containerRefs.current.forEach((ref) => {
-      if (ref && observer.current) observer.current.observe(ref);
-    });
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
 
     return () => {
-      if (observer.current) observer.current.disconnect();
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
     };
-  }, []);
+  }, [start]);
+
+  // Play videos sequentially when in view
+  useEffect(() => {
+    if (!start) return;
+
+    const currentVideo = videoRefs.current[currentIndex];
+    if (!currentVideo) return;
+
+    currentVideo.currentTime = 0;
+    currentVideo.play().catch(() => { });
+
+    const timeout = setTimeout(() => {
+      currentVideo.pause();
+      currentVideo.currentTime = 0;
+
+      const nextIndex = (currentIndex + 1) % processSteps.length;
+      setCurrentIndex(nextIndex);
+    }, 5000);
+
+    return () => clearTimeout(timeout);
+  }, [start, currentIndex]);
+
+  const handleClick = (index: number) => {
+    const video = videoRefs.current[index];
+    if (video) {
+      videoRefs.current.forEach((v, i) => {
+        if (i !== index && v) {
+          v.pause();
+          v.currentTime = 0;
+        }
+      });
+
+      video.requestFullscreen?.();
+      video.play().catch(() => { });
+    }
+  };
 
   return (
     <div className="min-h-screen font-sans">
@@ -470,8 +527,7 @@ const Home: React.FC = () => {
             {processSteps.map((step, index) => (
               <div
                 key={index}
-                className={`bg-gray-100 rounded-xl shadow-md overflow-hidden border border-gray-300 p-4 transition-all duration-300 ${index === currentIndex ? 'opacity-100 scale-100' : 'opacity-60 scale-95'
-                  }`}
+                className="bg-gray-100 rounded-xl border border-gray-300 p-4 transition-all duration-300"
               >
                 <h3 className="text-lg font-bold mb-2 text-center text-gray-800">{step.title}</h3>
                 <video
@@ -480,35 +536,13 @@ const Home: React.FC = () => {
                   muted
                   playsInline
                   controls={false}
-                  className="w-full h-48 object-cover rounded-lg cursor-pointer"
-                  onMouseEnter={() => {
-                    videoRefs.current.forEach((video, i) => {
-                      if (video) {
-                        if (i === index) {
-                          video.currentTime = 0;
-                          video.play().catch(() => { });
-                        } else {
-                          video.pause();
-                          video.currentTime = 0;
-                        }
-                      }
-                    });
-                  }}
-                  onMouseLeave={() => {
-                    const video = videoRefs.current[index];
-                    if (video) {
-                      video.pause();
-                      video.currentTime = 0;
-                    }
-                  }}
-                />
-
+                  className="w-full h-72 object-cover rounded-xl cursor-pointer transition-transform duration-300 hover:scale-105"
+                  onClick={() => handleClick(index)} />
               </div>
             ))}
           </div>
         </div>
       </section>
-
 
       {/* CTA Section */}
       <section className="py-20 bg-primary-500 text-white">
