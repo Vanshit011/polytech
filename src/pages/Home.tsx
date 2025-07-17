@@ -8,9 +8,9 @@ import first from '../assets/first.mp4';
 // import second from '../assets/second.mp4';
 // import third from '../assets/third.mp4';
 import four from '../assets/four.mp4';
-import five from '../assets/five.mp4';
-import six from '../assets/six.mp4';
-// import seven from '../assets/seven.mp4';
+import five from '../assets/fivefinal.mp4';
+// import six from '../assets/six.mp4';
+import seven from '../assets/seven.mp4';
 // import eight from '../assets/eight.mp4';
 import nine from '../assets/nine.mp4';
 // import tenth from '../assets/tenth.mp4';
@@ -106,7 +106,7 @@ const Home: React.FC = () => {
     { title: '1. Mixing Zone', video: first as string },
     { title: '2. Ready for Melt', video: four as string },
     { title: '3. Melting Process', video: five as string },
-    { title: '4. temperature Control', video: six as string },
+    { title: '4. temperature Control', video: seven as string },
     { title: '5. Cutting', video: nine as string },
     { title: '6. High Quality Granules', video: last as string },
     // { title: 'Final Granules', video: nine as string }

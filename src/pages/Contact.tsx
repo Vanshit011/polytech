@@ -297,7 +297,7 @@ Message: ${formData.message}`;
               Find Us on <span className="primary-text">Map</span>
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Located in the heart of Gundasara Industrial Area for easy accessibility
+              Located in the heart of Ribda Industrial Area for easy accessibility
             </p>
           </div>
 
