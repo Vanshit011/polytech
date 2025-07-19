@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "polytech-polymers"
-  }
+    "default": "polytech-polymers",
+    "production": "polytech-polymers-add8e"
+  },
+  "targets": {},
+  "etags": {}
 }
